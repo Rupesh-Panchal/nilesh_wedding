@@ -1,0 +1,17 @@
+{
+    "ganeshMantra": "॥ श्री गणेशाय नमः ॥",
+    "coupleName": "Nilesh & Jyotsna",
+    "map": "Map",
+    "menu": {
+        "invitation": "Invitation",
+        "auspiciousTime": "Auspicious Time",
+        "venueEvents": "Venue & Events",
+        "family": "Family",
+        "littleOnes": "Little Ones",
+        "contact": "Contact"
+    },
+    "mobileMenu": {
+        "open": "Open Menu",
+        "close": "Close Menu"
+    }
+}

@@ -1,111 +1,129 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap");
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@import "tailwindcss";
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+    /* Colors */
+    --color-surface: #fcf9f8;
+    --color-surface-dim: #dcd9d9;
+    --color-surface-container: #f0eded;
+    --color-surface-high: #eae7e7;
+    --color-on-surface: #1b1c1c;
+    --color-on-surface-variant: #574240;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+    --color-primary: #5b0309;
+    --color-primary-container: #7b1c1c;
+    --color-on-primary: #ffffff;
+    --color-on-primary-container: #ff8a82;
+
+    --color-secondary: #745b00;
+    --color-secondary-container: #fcd358;
+    --color-on-secondary-container: #735a00;
+
+    --color-tertiary: #715d00;
+    --color-tertiary-container: #c3a948;
+
+    --color-outline: #8a716f;
+    --color-outline-variant: #ddc0bd;
+
+    /* Fonts */
+    --font-display: "Playfair Display", serif;
+    --font-body: "Noto Serif", serif;
+    --font-devanagari: "Noto Serif Devanagari", serif;
+
+    /* Shadows */
+    --shadow-chandan: 0 8px 30px -4px rgba(123, 28, 28, 0.08), 0 2px 8px -2px rgba(197, 160, 40, 0.12);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
+/* Base styles */
 body {
-  margin: 0;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+/* ========================================
+   CUSTOM BACKGROUND ANIMATIONS
+======================================== */
+
+/* 1. Golden Glow Animation */
+@keyframes pulse-slow {
+    0%,
+    100% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+.animate-pulse-slow {
+    animation: pulse-slow 8s ease-in-out infinite;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+/* 2. Falling Petals Animation */
+@keyframes petal-fall {
+    0% {
+        transform: translate3d(0, -10vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1; /* Fade in */
+    }
+    25% {
+        transform: translate3d(var(--sway), 25vh, 0) rotate(90deg);
+    }
+
+    50% {
+        transform: translate3d(calc(var(--sway) * -0.7), 55vh, 0) rotate(180deg);
+    }
+
+    75% {
+        transform: translate3d(var(--sway), 80vh, 0) rotate(270deg);
+    }
+
+    90% {
+        opacity: 1; /* Stay visible */
+    }
+    100% {
+        transform: translate3d(0, 115vh, 0) rotate(360deg);
+        opacity: 0; /* Fade out at bottom */
+    }
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+.animate-petal-fall {
+    animation-name: petal-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform, opacity;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* 3. Accessibility: Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .animate-petal-fall,
+    .animate-pulse-slow {
+        animation: none !important;
+    }
+}
+
+/* Animated Hanging Diya Swing */
+@keyframes swing {
+    0% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(5deg);
+    }
+}
+
+.animate-swing {
+    animation: swing 4s ease-in-out infinite;
 }

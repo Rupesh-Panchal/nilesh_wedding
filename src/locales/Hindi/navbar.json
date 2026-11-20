@@ -1,0 +1,17 @@
+{
+    "ganeshMantra": "॥ श्री गणेशाय नमः ॥",
+    "coupleName": "निलेश और ज्योत्स्ना",
+    "map": "नक्शा",
+    "menu": {
+        "invitation": "निमंत्रण",
+        "auspiciousTime": "शुभ मुहूर्त",
+        "venueEvents": "स्थान एवं कार्यक्रम",
+        "family": "परिवार",
+        "littleOnes": "नन्हे-मुन्ने",
+        "contact": "संपर्क"
+    },
+    "mobileMenu": {
+        "open": "मेन्यू खोलें",
+        "close": "मेन्यू बंद करें"
+    }
+}
