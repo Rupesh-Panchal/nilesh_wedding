@@ -64,7 +64,7 @@ const IntroAnimation = () => {
                     onClick={handleEnter}
                     className="mt-4 rounded-full border border-[#d4a44c] bg-[#fff4d6]/90 px-8 py-3 text-sm font-semibold tracking-[0.2em] text-[#780d16] shadow-[0_4px_20px_rgba(100,30,20,0.2)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#f8e7bd] active:scale-95"
                 >
-                    ✨ शुभारंभ ✨
+                    ✨ ENTER ✨
                 </button>
 
                 <p className="mt-3 text-center text-xs tracking-wider text-[#780d16]">Tap to enter the wedding invitation</p>
@@ -76,7 +76,7 @@ const IntroAnimation = () => {
                     onClick={handleEnter}
                     className="rounded-full border border-[#d4a44c] bg-[#fff4d6]/90 px-10 py-4 text-base font-semibold tracking-[0.2em] text-[#780d16] shadow-[0_4px_20px_rgba(100,30,20,0.2)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#f8e7bd] active:scale-95"
                 >
-                    ✨ शुभारंभ ✨
+                    ✨ ENTER ✨
                 </button>
 
                 <p className="mt-4 text-sm tracking-wider text-[#780d16]">Click to enter the wedding invitation</p>

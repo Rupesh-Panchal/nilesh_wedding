@@ -13,7 +13,7 @@ const LittleOnesSection = () => {
             <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10 flex flex-col items-center">
                 {/* Text Content */}
                 <div className="text-center mb-8 md:mb-10">
-                    <h2 className="font-devanagari text-2xl sm:text-3xl md:text-4xl font-bold text-[#5b0309] mb-4 tracking-wide">{t("title", '"आमच्या दादांच्या लग्नाला यायचं हं...!"')}</h2>
+                    <h2 className="font-devanagari text-2xl sm:text-3xl md:text-4xl font-bold text-[#5b0309] mb-4 tracking-wide">{t("title", '"आमच्या दादाच्या लग्नाला यायचं हं...!"')}</h2>
                     <p className="font-devanagari text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
                         {t("subtitle", "हसऱ्या चेहऱ्यांनी आणि उत्साहाने भरलेल्या चिमुकल्यांचा आग्रहाचा निमंत्रण संदेश.")}
                     </p>
