@@ -10,6 +10,7 @@ import LittleOnesSection from "./components/LittleOnesSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import BackgroundAnimation from "./components/BackgroundAnimation";
+import AutoScroll from "./components/AutoScroll";
 
 function App() {
     return (
@@ -22,7 +23,7 @@ function App() {
 
             {/* Global Background Animation */}
             <BackgroundAnimation />
-
+            <AutoScroll />
             {/* Main Website Content */}
             <div className="relative z-10">
                 <Navbar />
