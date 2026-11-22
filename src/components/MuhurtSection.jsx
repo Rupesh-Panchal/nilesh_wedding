@@ -39,7 +39,7 @@ const SideDecorations = ({ position }) => {
 // ==========================================
 const CountdownBox = ({ value, label }) => {
     return (
-        <div className="group relative bg-white rounded-xl md:rounded-2xl border border-[#c5a028]/40 shadow-[0_4px_15px_rgba(116,91,0,0.07)] hover:shadow-[0_8px_22px_rgba(116,91,0,0.13)] hover:-translate-y-1 transition-all duration-300 w-[62px] h-[75px] sm:w-[70px] sm:h-20 md:w-24 md:h-28 flex flex-col items-center justify-center overflow-hidden shrink-0">
+        <div className="group relative bg-white/95 backdrop-blur-sm rounded-xl md:rounded-2xl border border-[#c5a028]/40 shadow-[0_4px_15px_rgba(116,91,0,0.07)] hover:shadow-[0_8px_22px_rgba(116,91,0,0.13)] hover:-translate-y-1 transition-all duration-300 w-[62px] h-[75px] sm:w-[70px] sm:h-20 md:w-24 md:h-28 flex flex-col items-center justify-center overflow-hidden shrink-0">
             <div className="absolute top-0 left-0 w-full h-[2px] md:h-[3px] bg-gradient-to-r from-transparent via-[#c5a028] to-transparent"></div>
             <span className="font-display text-xl sm:text-2xl md:text-4xl font-bold text-[#5b0309] tabular-nums">{String(value).padStart(2, "0")}</span>
             <span className="font-devanagari text-[9px] sm:text-[10px] md:text-xs text-gray-500 mt-1">{label}</span>
@@ -83,7 +83,8 @@ const MuhurtSection = () => {
         "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nilesh+%26+Jyotsna+Wedding&dates=20261205T064700Z/20261205T100000Z&details=Shubh+Vivah+of+Nilesh+and+Jyotsna&location=Mumbai";
 
     return (
-        <section id="muhurt-section" className="relative w-full py-16 md:py-24 bg-gradient-to-b from-white via-[#fffdf7] to-[#fcf8ed] overflow-hidden">
+        // Changed background to transparent to let the global falling leaves show through
+        <section id="muhurt-section" className="relative w-full py-16 md:py-24 bg-transparent overflow-hidden">
             <div className="absolute top-10 left-[-100px] w-72 h-72 bg-[#fcd358]/10 blur-[100px] rounded-full pointer-events-none"></div>
             <div className="absolute bottom-10 right-[-100px] w-72 h-72 bg-[#c5a028]/10 blur-[100px] rounded-full pointer-events-none"></div>
 
@@ -95,7 +96,8 @@ const MuhurtSection = () => {
                     <div className="relative w-full max-w-4xl mx-auto group">
                         <div className="absolute -inset-[3px] rounded-[2.2rem] bg-gradient-to-br from-[#d4af37] via-[#f8e7a0] to-[#9b761b] opacity-80 blur-[1px]"></div>
 
-                        <div className="relative bg-[#fffdf8] rounded-[2rem] p-[2px] shadow-[0_15px_50px_rgba(91,3,9,0.10)]">
+                        {/* Added backdrop-blur-md and bg-opacity to the main card */}
+                        <div className="relative bg-[#fffdf8]/95 backdrop-blur-md rounded-[2rem] p-[2px] shadow-[0_15px_50px_rgba(91,3,9,0.10)]">
                             {/* Inner border */}
                             <div className="relative rounded-[1.9rem] border border-[#c5a028]/60 px-5 py-6 sm:p-6 md:p-12 flex flex-col items-center text-center overflow-hidden">
                                 <div className="absolute inset-2 sm:inset-3 border border-[#c5a028]/20 rounded-[1.5rem] pointer-events-none"></div>
@@ -120,14 +122,14 @@ const MuhurtSection = () => {
                                 <p className="relative font-devanagari text-xs sm:text-sm text-gray-500 italic mb-8 sm:mb-10">{t("subtext")}</p>
 
                                 <div className="relative flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center mb-8 sm:mb-10">
-                                    <div className="bg-white rounded-2xl shadow-[0_4px_15px_rgba(91,3,9,0.05)] border border-[#c5a028]/35 px-4 sm:px-6 py-4 sm:py-5 flex flex-col items-center w-full sm:w-64 transition-all duration-300 hover:border-[#c5a028] hover:-translate-y-1">
+                                    <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_4px_15px_rgba(91,3,9,0.05)] border border-[#c5a028]/35 px-4 sm:px-6 py-4 sm:py-5 flex flex-col items-center w-full sm:w-64 transition-all duration-300 hover:border-[#c5a028] hover:-translate-y-1">
                                         <Calendar size={20} className="text-[#c5a028] mb-2 sm:mb-3" strokeWidth={1.6} />
                                         <span className="font-devanagari text-[10px] sm:text-xs text-gray-500 mb-1">{t("dateLabel")}</span>
                                         <span className="font-devanagari text-xl sm:text-2xl font-bold text-[#5b0309] mb-1">{t("dateValue")}</span>
                                         <span className="font-devanagari text-[10px] sm:text-xs text-gray-400">{t("dayValue")}</span>
                                     </div>
 
-                                    <div className="bg-white rounded-2xl shadow-[0_4px_15px_rgba(91,3,9,0.05)] border border-[#c5a028]/35 px-4 sm:px-6 py-4 sm:py-5 flex flex-col items-center w-full sm:w-64 transition-all duration-300 hover:border-[#c5a028] hover:-translate-y-1">
+                                    <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-[0_4px_15px_rgba(91,3,9,0.05)] border border-[#c5a028]/35 px-4 sm:px-6 py-4 sm:py-5 flex flex-col items-center w-full sm:w-64 transition-all duration-300 hover:border-[#c5a028] hover:-translate-y-1">
                                         <Clock size={20} className="text-[#c5a028] mb-2 sm:mb-3" strokeWidth={1.6} />
                                         <span className="font-devanagari text-[10px] sm:text-xs text-gray-500 mb-1">{t("timeLabel")}</span>
                                         <span className="font-devanagari text-xl sm:text-2xl font-bold text-[#5b0309] mb-1">{t("timeValue")}</span>

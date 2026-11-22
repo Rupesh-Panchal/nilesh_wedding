@@ -1,0 +1,26 @@
+{
+    "title": "|| Wedding Programme & Venue ||",
+    "subtitle": "Details of the wedding celebrations.",
+    "vivah": {
+        "label": "WEDDING",
+        "day": "Saturday",
+        "title": "Wedding Ceremony of Nilesh & Jyotsna",
+        "date": "5th December 2026, 6:17 PM",
+        "desc": "Traditional wedding rituals, Mangalashtak and Saptapadi."
+    },
+    "venue": {
+        "label": "WEDDING VENUE",
+        "name": "Thathai Bhatia Seva Fund Hall No. 4",
+        "address": "Cross Lane, Opposite Namaha Hospital, S.K. Road, Kandivali West, Mumbai, Maharashtra, India.",
+        "landmark": "Opposite Namaha Hospital, S.K. Road.",
+        "locationNote": "Located in Kandivali West, Mumbai.",
+        "mapLabel": "View Wedding Venue on Google Maps",
+        "mapTitle": "Wedding Venue Location",
+        "mapDescription": "Find the wedding venue using the location map below.",
+        "directions": "Get Directions",
+        "openMap": "Open in Google Maps"
+    },
+    "decoration": {
+        "greeting": "|| Shubhamangal Savadhan ||"
+    }
+}

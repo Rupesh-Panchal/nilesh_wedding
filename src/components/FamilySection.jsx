@@ -24,6 +24,7 @@ const FemaleIcon = () => (
     </svg>
 );
 
+/* Heart Icon */
 const HeartIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-8 h-8">
         <path
@@ -34,6 +35,7 @@ const HeartIcon = () => (
     </svg>
 );
 
+/* Location Icon */
 const LocationIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-5 h-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
@@ -41,6 +43,7 @@ const LocationIcon = () => (
     </svg>
 );
 
+/* Calendar Icon */
 const CalendarIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
         <rect x="3" y="5" width="18" height="16" rx="2" />
@@ -48,6 +51,7 @@ const CalendarIcon = () => (
     </svg>
 );
 
+/* Clock Icon */
 const ClockIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
         <circle cx="12" cy="12" r="9" />
@@ -55,43 +59,55 @@ const ClockIcon = () => (
     </svg>
 );
 
+/* Family Card */
 const FamilyCard = ({ type, title, subtitle, name, parentsTitle, parents, address, footer }) => {
     const isGroom = type === "groom";
 
     return (
         <article className="relative h-full min-h-[560px] flex flex-col overflow-hidden rounded-2xl bg-white/95 backdrop-blur-sm border border-[#e9dfc5] shadow-[0_10px_35px_rgba(91,3,9,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(91,3,9,0.14)]">
             <div className={`h-1.5 w-full ${isGroom ? "bg-[#5b0309]" : "bg-[#745b00]"}`} />
+
             <div className="px-5 pt-6">
                 <div className={`rounded-xl py-3 px-4 text-center text-white font-devanagari font-semibold text-lg shadow-sm ${isGroom ? "bg-[#5b0309]" : "bg-[#745b00]"}`}>{title}</div>
             </div>
+
             <div className="flex-1 flex flex-col items-center text-center px-6 pt-7 pb-5">
                 <div className="relative mb-5">
                     <div className="w-[76px] h-[76px] rounded-2xl bg-[#fcf0c7] border border-[#ead9a7] flex items-center justify-center text-[#745b00] shadow-inner">
                         {isGroom ? <MaleIcon /> : <FemaleIcon />}
                     </div>
+
                     <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#5b0309] border-2 border-white flex items-center justify-center text-[#fcf0c7] text-xs">✦</span>
                 </div>
+
                 <p className="font-devanagari text-sm text-[#987b38] font-medium mb-2">{subtitle}</p>
+
                 <h3 className="font-devanagari text-2xl md:text-[27px] font-bold text-[#5b0309] mb-5 leading-relaxed">{name}</h3>
+
                 <div className="flex items-center justify-center gap-3 w-full mb-5">
                     <span className="h-px flex-1 bg-[#e9dcb9]" />
                     <span className="text-[#b18a35] text-lg">✥</span>
                     <span className="h-px flex-1 bg-[#e9dcb9]" />
                 </div>
+
                 <div className="w-full mb-6">
                     <h4 className="font-devanagari text-sm font-bold text-[#745b00] mb-3">{parentsTitle}</h4>
+
                     <p className="font-devanagari text-[15px] text-gray-700 leading-8 whitespace-pre-line">{parents}</p>
                 </div>
+
                 <div className="w-full mt-auto">
                     <div className="bg-[#faf7ef] rounded-xl border border-[#eee4cf] px-4 py-4">
                         <div className="flex justify-center items-center gap-2 text-[#745b00] mb-2">
                             <LocationIcon />
                             <span className="font-devanagari text-sm font-semibold">मूळ गाव / पत्ता</span>
                         </div>
+
                         <p className="font-devanagari text-sm text-gray-600 leading-7 whitespace-pre-line">{address}</p>
                     </div>
                 </div>
             </div>
+
             <div className="border-t border-[#eee4cf] bg-[#fcfaf5] py-4 px-4 text-center">
                 <p className="font-devanagari text-sm font-medium text-[#745b00] flex items-center justify-center gap-2">
                     <span>✦</span> {footer} <span>✦</span>
@@ -101,64 +117,95 @@ const FamilyCard = ({ type, title, subtitle, name, parentsTitle, parents, addres
     );
 };
 
+/* Wedding Card */
 const WeddingCard = ({ t }) => (
     <article className="relative h-full min-h-[560px] flex flex-col overflow-hidden rounded-2xl bg-[#5b0309] text-white border border-[#76252b] shadow-[0_12px_40px_rgba(91,3,9,0.22)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(91,3,9,0.3)]">
         <div className="h-1.5 bg-[#c5a028]" />
+
         <div className="absolute top-20 left-0 w-full flex justify-center opacity-[0.06] pointer-events-none">
             <span className="text-[180px] leading-none">ॐ</span>
         </div>
+
         <div className="relative flex-1 flex flex-col items-center text-center px-6 pt-8 pb-6">
             <div className="w-[76px] h-[76px] rounded-2xl bg-[#745b00] border border-[#b28e36] flex items-center justify-center text-[#fff3cf] shadow-lg mb-5">
                 <HeartIcon />
             </div>
+
             <p className="font-devanagari text-sm text-[#f2d995] font-semibold mb-3">{t("wedding.mantra")}</p>
+
             <h3 className="font-devanagari text-2xl md:text-[27px] font-bold leading-relaxed mb-5">{t("wedding.title")}</h3>
+
             <div className="flex items-center gap-3 w-full mb-6">
                 <span className="h-px flex-1 bg-[#a66b6d]" />
                 <span className="text-[#e1bd64] text-xl">✥</span>
                 <span className="h-px flex-1 bg-[#a66b6d]" />
             </div>
+
             <p className="font-devanagari text-sm text-[#f8e8c7] leading-8 mb-6">{t("sectionSubtitle")}</p>
+
             <div className="w-full bg-[#470207]/80 border border-[#8c494d] rounded-xl p-5 mb-5">
                 <p className="font-devanagari text-[#e6c775] text-sm font-semibold mb-4">{t("wedding.muhurtTitle")}</p>
+
                 <div className="flex items-center justify-center gap-3 mb-4 text-[#fff0d2]">
                     <CalendarIcon />
                     <p className="font-devanagari text-base font-semibold leading-relaxed">{t("wedding.date")}</p>
                 </div>
+
                 <div className="w-3/4 mx-auto h-px bg-[#885053] mb-4" />
+
                 <div className="flex items-center justify-center gap-3 text-[#e6c775]">
                     <ClockIcon />
                     <p className="font-devanagari text-xl font-bold">{t("wedding.time")}</p>
                 </div>
             </div>
+
             <div className="mt-auto w-full">
                 <p className="font-devanagari text-sm italic leading-8 text-[#f8e8c7]">"{t("wedding.quote")}"</p>
             </div>
         </div>
+
         <div className="bg-[#470207] border-t border-[#854044] py-4 text-center">
             <p className="font-devanagari text-sm font-semibold text-[#e9cb83]">✦ शुभमंगल सावधान ✦</p>
         </div>
     </article>
 );
 
+/* MAIN FAMILY SECTION */
 const FamilySection = () => {
     const { t } = useTranslation("family");
 
     return (
-        // Reduced py-16 to py-10 for mobile
-        <section className="relative w-full py-10 md:py-24 bg-white/60 overflow-hidden">
+        <section id="family-section" className="relative w-full pt-4 pb-12 md:pt-4 md:pb-20 bg-transparent overflow-hidden">
+            {/* SAME GOLDEN GLOWS AS MUHURT SECTION */}
+            <div className="absolute top-10 left-[-100px] w-72 h-72 bg-[#fcd358]/10 blur-[100px] rounded-full pointer-events-none" />
+
+            <div className="absolute bottom-10 right-[-100px] w-72 h-72 bg-[#c5a028]/10 blur-[100px] rounded-full pointer-events-none" />
+
+            {/* SAME FLOATING DECORATIONS AS MUHURT / VENUE */}
+            <div className="absolute top-1/4 right-10 text-[#c5a028]/30 text-4xl animate-[float_7s_ease-in-out_infinite] pointer-events-none">✥</div>
+
+            <div className="absolute bottom-1/4 left-10 text-[#d4af37]/30 text-2xl animate-[float_5s_ease-in-out_infinite] pointer-events-none">✦</div>
+
+            <div className="absolute top-1/2 left-1/4 text-[#D4AF37] text-xs animate-pulse opacity-40 pointer-events-none [animation-delay:500ms]">✦</div>
+
+            <div className="absolute bottom-1/3 right-1/4 text-[#C5A028] text-[10px] animate-pulse opacity-50 pointer-events-none [animation-delay:1000ms]">✧</div>
+
+            {/* MAIN CONTENT */}
             <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+                {/* SECTION HEADER */}
                 <div className="text-center mb-10 md:mb-14">
                     <div className="flex items-center justify-center gap-4 mb-5">
                         <span className="w-14 h-px bg-[#c5a028]" />
                         <span className="text-[#a27d27] text-xl">✥</span>
                         <span className="w-14 h-px bg-[#c5a028]" />
                     </div>
-                    {/* FIXED TITLE: Added whitespace-nowrap and adjusted text sizes for single line on mobile */}
-                    <h2 className="font-devanagari text-[22px] sm:text-3xl md:text-4xl font-bold text-[#5b0309] mb-4 tracking-wide whitespace-nowrap">{t("sectionTitle")}</h2>
+
+                    <h2 className="font-devanagari text-[22px] sm:text-3xl md:text-4xl font-bold text-[#5b0309] mb-4 tracking-wide leading-snug">{t("sectionTitle")}</h2>
+
                     <p className="font-devanagari text-sm md:text-base text-gray-700 max-w-2xl mx-auto leading-8">{t("sectionSubtitle")}</p>
                 </div>
 
+                {/* FAMILY CARDS GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 items-stretch">
                     <FamilyCard
                         type="groom"
@@ -170,7 +217,9 @@ const FamilySection = () => {
                         address={t("groomFamily.address")}
                         footer={t("groomFamily.footer")}
                     />
+
                     <WeddingCard t={t} />
+
                     <FamilyCard
                         type="bride"
                         title={t("brideFamily.title")}
@@ -183,8 +232,6 @@ const FamilySection = () => {
                     />
                 </div>
             </div>
-
-            <div className="absolute bottom-0 left-0 w-full h-16 md:h-24 bg-gradient-to-b from-transparent to-white/60 pointer-events-none z-0"></div>
         </section>
     );
 };

@@ -147,8 +147,6 @@ const HeroSection = () => {
                     </div>
                 </main>
             </div>
-
-            <div className="absolute bottom-0 left-0 w-full h-16 md:h-32 bg-gradient-to-b from-transparent to-white/40 pointer-events-none z-0"></div>
         </div>
     );
 };

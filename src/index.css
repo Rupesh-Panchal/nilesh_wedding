@@ -189,3 +189,102 @@ body {
         transition: none !important;
     }
 }
+
+/* Wedding mandala rotation */
+@keyframes weddingRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.wedding-rotate {
+    animation: weddingRotate 45s linear infinite;
+}
+
+/* Gentle central heartbeat */
+@keyframes weddingHeartbeat {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+.wedding-heartbeat {
+    animation: weddingHeartbeat 4s ease-in-out infinite;
+}
+
+/* Floating decorative petals */
+.wedding-petal {
+    position: absolute;
+    color: #c5a028;
+    opacity: 0.4;
+    pointer-events: none;
+    animation: weddingFloat 6s ease-in-out infinite;
+}
+
+.petal-one {
+    top: 12%;
+    left: 15%;
+    font-size: 22px;
+}
+
+.petal-two {
+    top: 20%;
+    right: 15%;
+    font-size: 18px;
+    animation-delay: 1s;
+}
+
+.petal-three {
+    bottom: 32%;
+    left: 12%;
+    font-size: 25px;
+    animation-delay: 2s;
+}
+
+.petal-four {
+    bottom: 28%;
+    right: 12%;
+    font-size: 20px;
+    animation-delay: 3s;
+}
+
+.petal-five {
+    top: 50%;
+    left: 5%;
+    font-size: 15px;
+    animation-delay: 1.5s;
+}
+
+.petal-six {
+    top: 48%;
+    right: 5%;
+    font-size: 16px;
+    animation-delay: 2.5s;
+}
+
+@keyframes weddingFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.25;
+    }
+    50% {
+        transform: translateY(-18px) rotate(25deg);
+        opacity: 0.7;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wedding-rotate,
+    .wedding-heartbeat,
+    .wedding-petal {
+        animation: none !important;
+    }
+}

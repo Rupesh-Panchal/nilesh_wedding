@@ -21,6 +21,11 @@ import EnglishMuhurt from "./locales/English/muhurt.json";
 import MarathiMuhurt from "./locales/Marathi/muhurt.json";
 import HindiMuhurt from "./locales/Hindi/muhurt.json";
 
+// Venue translations  <-- ADDED IMPORTS
+import EnglishVenue from "./locales/English/venue.json";
+import MarathiVenue from "./locales/Marathi/venue.json";
+import HindiVenue from "./locales/Hindi/venue.json";
+
 i18n.use(initReactI18next).init({
     resources: {
         en: {
@@ -28,25 +33,29 @@ i18n.use(initReactI18next).init({
             hero: EnglishHero,
             family: EnglishFamily,
             muhurt: EnglishMuhurt,
+            venue: EnglishVenue, // <-- ADDED RESOURCE
         },
         mr: {
             navbar: MarathiNavbar,
             hero: MarathiHero,
             family: MarathiFamily,
             muhurt: MarathiMuhurt,
+            venue: MarathiVenue, // <-- ADDED RESOURCE
         },
         hi: {
             navbar: HindiNavbar,
             hero: HindiHero,
             family: HindiFamily,
             muhurt: HindiMuhurt,
+            venue: HindiVenue, // <-- ADDED RESOURCE
         },
     },
 
     lng: "mr",
     fallbackLng: "mr",
 
-    ns: ["navbar", "hero", "family", "muhurt"],
+    // Added "venue" to the namespaces array
+    ns: ["navbar", "hero", "family", "muhurt", "venue"],
     defaultNS: "navbar",
 
     interpolation: {

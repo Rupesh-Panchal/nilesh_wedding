@@ -2,7 +2,8 @@ import React from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import FamilySection from "./components/FamilySection";
-import MuhurtSection from "./components/MuhurtSection"; // <-- Import
+import MuhurtSection from "./components/MuhurtSection";
+import VenueSection from "./components/VenueSection"; // <-- Added Import
 import BackgroundAnimation from "./components/BackgroundAnimation";
 
 function App() {
@@ -17,10 +18,13 @@ function App() {
                 <HeroSection />
                 <FamilySection />
 
-                {/* Add the new section here */}
+                {/* Auspicious Time / Muhurt */}
                 <MuhurtSection />
 
-                {/* Future sections will go here */}
+                {/* Venue & Events */}
+                <VenueSection />
+
+                {/* Future sections will go here (e.g., Little Ones, Contact) */}
             </div>
         </div>
     );
