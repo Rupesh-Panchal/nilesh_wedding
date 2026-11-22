@@ -1,5 +1,6 @@
 import React from "react";
 import IntroAnimation from "./components/IntroAnimation";
+import BackgroundMusic from "./components/BackgroundMusic";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import FamilySection from "./components/FamilySection";
@@ -13,35 +14,24 @@ import BackgroundAnimation from "./components/BackgroundAnimation";
 function App() {
     return (
         <div className="relative min-h-screen bg-surface font-body text-on-surface">
-            {/* 1. Website Opening Animation */}
+            {/* Website Opening Animation */}
             <IntroAnimation />
 
-            {/* 2. Global Background Animation */}
+            {/* Background Music */}
+            <BackgroundMusic />
+
+            {/* Global Background Animation */}
             <BackgroundAnimation />
 
-            {/* 3. Main Content Container */}
+            {/* Main Website Content */}
             <div className="relative z-10">
                 <Navbar />
-
-                {/* Hero Section */}
                 <HeroSection />
-
-                {/* Family Section */}
                 <FamilySection />
-
-                {/* Auspicious Time / Muhurt */}
                 <MuhurtSection />
-
-                {/* Venue & Events */}
                 <VenueSection />
-
-                {/* Contact & Download Section */}
                 <ContactSection />
-
-                {/* Little Ones / Fun Section */}
                 <LittleOnesSection />
-
-                {/* Footer */}
                 <Footer />
             </div>
         </div>
