@@ -1,0 +1,30 @@
+{
+    "sectionTitle": "|| A Cordial Invitation ||",
+    "sectionSubtitle": "With love, respect, and heartfelt joy, we cordially invite you and your family to grace this auspicious occasion with your presence and blessings.",
+    "groomFamily": {
+        "title": "Groom's Family",
+        "subtitle": "The Groom",
+        "name": "Chi. Nilesh",
+        "parentsTitle": "Beloved Son of:",
+        "parents": "Shri. Vijay Mahadev Panchal\nand Sau. Jayashri Vijay Panchal",
+        "address": "Panchal Family, Bhandup, Mumbai.\nWe warmly invite you and your family to join us in celebrating this joyous occasion.",
+        "footer": "With Respect and Gratitude"
+    },
+    "wedding": {
+        "mantra": "|| With the Blessings of the Almighty ||",
+        "title": "Wedding Ceremony",
+        "muhurtTitle": "Auspicious Wedding Muhurat",
+        "date": "5 December 2026",
+        "time": "12:39 PM",
+        "quote": "The union of two hearts brings together two families, creating a bond of love and togetherness for a lifetime."
+    },
+    "brideFamily": {
+        "title": "Bride's Family",
+        "subtitle": "The Bride",
+        "name": "Chi. Sou. Ka. Jyotsna",
+        "parentsTitle": "Beloved Daughter of:",
+        "parents": "Shri. Chandrakant (Baba) Ganpat Mestry\nand Sau. Sulochana Chandrakant Mestry",
+        "address": "Mestry Family, Kandivali, Mumbai.\nWe warmly welcome you and your family to share in this beautiful celebration.",
+        "footer": "With Warm Regards and Welcome"
+    }
+}

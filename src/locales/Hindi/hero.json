@@ -2,6 +2,14 @@
     "ganeshMantra": "॥ श्री गणेशाय नमः ॥",
     "ganeshBlessing": "॥ श्री गजानन प्रसन्न ॥",
     "ravळनाथBlessing": "॥ श्री देव रवळनाथ प्रसन्न ॥",
+    "leftDecoration": {
+        "main": "॥ शुभमस्तु सर्वदा ॥",
+        "sub": "सदैव मंगलमय हो"
+    },
+    "rightDecoration": {
+        "main": "॥ सौभाग्यं भवतु ॥",
+        "sub": "सुख और समृद्धि बनी रहे"
+    },
     "subtitle": "शुभ विवाह समारोह",
     "groomName": "निलेश",
     "brideName": "ज्योत्स्ना",
