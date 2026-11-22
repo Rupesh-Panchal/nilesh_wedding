@@ -16,29 +16,37 @@ import EnglishFamily from "./locales/English/family.json";
 import MarathiFamily from "./locales/Marathi/family.json";
 import HindiFamily from "./locales/Hindi/family.json";
 
+// Muhurt translations
+import EnglishMuhurt from "./locales/English/muhurt.json";
+import MarathiMuhurt from "./locales/Marathi/muhurt.json";
+import HindiMuhurt from "./locales/Hindi/muhurt.json";
+
 i18n.use(initReactI18next).init({
     resources: {
         en: {
             navbar: EnglishNavbar,
             hero: EnglishHero,
             family: EnglishFamily,
+            muhurt: EnglishMuhurt,
         },
         mr: {
             navbar: MarathiNavbar,
             hero: MarathiHero,
             family: MarathiFamily,
+            muhurt: MarathiMuhurt,
         },
         hi: {
             navbar: HindiNavbar,
             hero: HindiHero,
             family: HindiFamily,
+            muhurt: HindiMuhurt,
         },
     },
 
     lng: "mr",
     fallbackLng: "mr",
 
-    ns: ["navbar", "hero", "family"],
+    ns: ["navbar", "hero", "family", "muhurt"],
     defaultNS: "navbar",
 
     interpolation: {

@@ -1,8 +1,9 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import BackgroundAnimation from "./components/BackgroundAnimation";
 import FamilySection from "./components/FamilySection";
+import MuhurtSection from "./components/MuhurtSection"; // <-- Import
+import BackgroundAnimation from "./components/BackgroundAnimation";
 
 function App() {
     return (
@@ -12,10 +13,14 @@ function App() {
 
             {/* 2. Main Content Container */}
             <div className="relative z-10">
-                {/* Navbar is now sticky and holds the language toggle */}
                 <Navbar />
                 <HeroSection />
-                <FamilySection /> 
+                <FamilySection />
+
+                {/* Add the new section here */}
+                <MuhurtSection />
+
+                {/* Future sections will go here */}
             </div>
         </div>
     );
