@@ -32,7 +32,8 @@ const IntroAnimation = () => {
         removeTimerRef.current = setTimeout(() => {
             setIsVisible(false);
 
-            // Tell the rest of the app the intro is completely gone
+            // Flag + event: AutoScroll starts only after the intro is completely gone
+            window.__weddingIntroComplete = true;
             window.dispatchEvent(new Event("wedding-intro-complete"));
         }, FADE_DURATION + 100);
     };

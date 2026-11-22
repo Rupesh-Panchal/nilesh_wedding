@@ -1,6 +1,7 @@
 import React from "react";
 import IntroAnimation from "./components/IntroAnimation";
 import BackgroundMusic from "./components/BackgroundMusic";
+import AutoScroll from "./components/AutoScroll";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import FamilySection from "./components/FamilySection";
@@ -10,7 +11,6 @@ import LittleOnesSection from "./components/LittleOnesSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import BackgroundAnimation from "./components/BackgroundAnimation";
-import AutoScroll from "./components/AutoScroll";
 
 function App() {
     return (
@@ -18,12 +18,15 @@ function App() {
             {/* Website Opening Animation */}
             <IntroAnimation />
 
-            {/* Background Music */}
+            {/* Background Music + language dropdown */}
             <BackgroundMusic />
+
+            {/* Slow auto scroll (no UI) */}
+            <AutoScroll />
 
             {/* Global Background Animation */}
             <BackgroundAnimation />
-            <AutoScroll />
+
             {/* Main Website Content */}
             <div className="relative z-10">
                 {/* <Navbar /> */}
@@ -31,8 +34,8 @@ function App() {
                 <FamilySection />
                 <MuhurtSection />
                 <VenueSection />
-                <ContactSection />
                 <LittleOnesSection />
+                <ContactSection />
                 {/* <Footer /> */}
             </div>
         </div>
