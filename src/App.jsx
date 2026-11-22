@@ -26,14 +26,14 @@ function App() {
             <AutoScroll />
             {/* Main Website Content */}
             <div className="relative z-10">
-                <Navbar />
+                {/* <Navbar /> */}
                 <HeroSection />
                 <FamilySection />
                 <MuhurtSection />
                 <VenueSection />
                 <ContactSection />
                 <LittleOnesSection />
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </div>
     );

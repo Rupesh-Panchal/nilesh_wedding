@@ -1,10 +1,11 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 // Slow scroll speed in pixels per second. Lower = slower.
 const SPEED = 40;
 
-// Wait for the intro fade-out (1s) plus a short pause before scrolling starts
-const START_DELAY = 1800;
+// Short pause after the intro has fully disappeared, before scrolling starts
+const START_DELAY = 800;
 
 // Pause at the bottom before rewinding, and at the top before scrolling again (ms)
 const BOTTOM_PAUSE = 1500;
@@ -13,13 +14,21 @@ const TOP_PAUSE = 1500;
 // How long the fast scroll back to the top takes (ms)
 const REWIND_DURATION = 1500;
 
+// Language for each pass, in order. After the last one it loops back to the first.
+const LANGUAGE_ORDER = ["mr", "hi", "en"];
+
 const easeInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
+const getMaxScroll = () => document.documentElement.scrollHeight - window.innerHeight;
+
 const AutoScroll = () => {
+    const { i18n } = useTranslation();
+
     useEffect(() => {
         let rafId = null;
         let startTimer = null;
         let running = false;
+        let langIndex = 0;
         let cleanupInteraction = () => {};
 
         const stop = () => {
@@ -33,8 +42,13 @@ const AutoScroll = () => {
             if (running) return;
             running = true;
 
+            // First pass always starts in Marathi
+            langIndex = 0;
+            i18n.changeLanguage(LANGUAGE_ORDER[langIndex]);
+
             let last = performance.now();
-            let pos = window.scrollY; // keep the fractional position ourselves
+            let pos = window.scrollY;
+            let lastMax = getMaxScroll();
 
             // Phases: "down" -> "bottomPause" -> "up" -> "topPause" -> "down" ...
             let phase = "down";
@@ -49,10 +63,18 @@ const AutoScroll = () => {
             const tick = (now) => {
                 if (!running) return;
 
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const maxScroll = getMaxScroll();
 
-                // Visitor moved the page themselves (scrollbar drag, nav tab click, etc.)
-                if (Math.abs(window.scrollY - pos) > 5) {
+                // If the page height changed (language switch, images/map loading),
+                // the browser may have nudged scrollY. That is NOT the visitor, so re-sync.
+                if (Math.abs(maxScroll - lastMax) > 1) {
+                    lastMax = maxScroll;
+                    pos = Math.min(window.scrollY, maxScroll);
+                }
+
+                // Only treat a position mismatch as "visitor scrolled" while actively moving
+                const moving = phase === "down" || phase === "up";
+                if (moving && Math.abs(window.scrollY - pos) > 20) {
                     stop();
                     return;
                 }
@@ -67,6 +89,8 @@ const AutoScroll = () => {
 
                     if (pos >= maxScroll - 1) goTo("bottomPause", now);
                 } else if (phase === "bottomPause") {
+                    // Keep our position in sync while waiting
+                    pos = window.scrollY;
                     if (now - phaseStart >= BOTTOM_PAUSE) {
                         upFrom = pos;
                         goTo("up", now);
@@ -78,10 +102,22 @@ const AutoScroll = () => {
 
                     if (progress >= 1) {
                         pos = 0;
+                        window.scrollTo({ top: 0, behavior: "instant" });
+
+                        // One full pass is done: switch to the next language while at the top
+                        langIndex = (langIndex + 1) % LANGUAGE_ORDER.length;
+                        i18n.changeLanguage(LANGUAGE_ORDER[langIndex]);
+
                         goTo("topPause", now);
                     }
                 } else if (phase === "topPause") {
-                    if (now - phaseStart >= TOP_PAUSE) goTo("down", now);
+                    if (now - phaseStart >= TOP_PAUSE) {
+                        // Force a clean start for the next pass after the re-render settled
+                        window.scrollTo({ top: 0, behavior: "instant" });
+                        pos = 0;
+                        lastMax = getMaxScroll();
+                        goTo("down", now);
+                    }
                 }
 
                 rafId = requestAnimationFrame(tick);
@@ -95,20 +131,20 @@ const AutoScroll = () => {
             rafId = requestAnimationFrame(tick);
         };
 
-        // Fired by IntroAnimation when the visitor taps ENTER
-        const onEnter = () => {
+        // Fired by IntroAnimation only after the intro has fully faded out and been removed
+        const onIntroComplete = () => {
             clearTimeout(startTimer);
             startTimer = setTimeout(start, START_DELAY);
         };
 
-        window.addEventListener("wedding-start", onEnter);
+        window.addEventListener("wedding-intro-complete", onIntroComplete);
 
         return () => {
-            window.removeEventListener("wedding-start", onEnter);
+            window.removeEventListener("wedding-intro-complete", onIntroComplete);
             clearTimeout(startTimer);
             stop();
         };
-    }, []);
+    }, [i18n]);
 
     return null; // no UI at all
 };

@@ -1,39 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import introImage from "../assets/intro-devotional.png";
+
+// How long the intro takes to fade away (ms). Increase for a slower fade.
+const FADE_DURATION = 2500;
 
 const IntroAnimation = () => {
     const [isExiting, setIsExiting] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [isRevealed, setIsRevealed] = useState(false);
+    const removeTimerRef = useRef(null);
 
     useEffect(() => {
-        const revealTimer = setTimeout(() => {
-            setIsRevealed(true);
-        }, 100);
+        const revealTimer = setTimeout(() => setIsRevealed(true), 100);
 
-        return () => clearTimeout(revealTimer);
+        return () => {
+            clearTimeout(revealTimer);
+            clearTimeout(removeTimerRef.current);
+        };
     }, []);
 
     const handleEnter = () => {
-        // Start background music through the visitor's interaction
+        if (isExiting) return; // ignore repeat clicks
+
+        // Music starts right away on the visitor's click
         window.dispatchEvent(new Event("wedding-start"));
 
-        // Start intro fade-out
+        // Start slow fade-out
         setIsExiting(true);
 
-        // Remove intro after fade transition
-        setTimeout(() => {
+        // Remove intro only after the fade has fully finished
+        removeTimerRef.current = setTimeout(() => {
             setIsVisible(false);
-        }, 1000);
+
+            // Tell the rest of the app the intro is completely gone
+            window.dispatchEvent(new Event("wedding-intro-complete"));
+        }, FADE_DURATION + 100);
     };
 
     if (!isVisible) return null;
 
     return (
         <div
-            className={`fixed inset-0 z-[99999] h-screen h-[100svh] w-full overflow-hidden bg-[#fff0d5] transition-opacity duration-1000 ease-in-out ${
-                isExiting ? "opacity-0 pointer-events-none" : "opacity-100"
-            }`}
+            className="fixed inset-0 z-[99999] h-screen h-[100svh] w-full overflow-hidden bg-[#fff0d5]"
+            style={{
+                opacity: isExiting ? 0 : 1,
+                transform: isExiting ? "scale(1.04)" : "scale(1)",
+                transition: `opacity ${FADE_DURATION}ms ease-in-out, transform ${FADE_DURATION}ms ease-in-out`,
+                pointerEvents: isExiting ? "none" : "auto",
+                willChange: "opacity, transform",
+            }}
         >
             {/* Mobile blurred background */}
             <div className="absolute inset-0 md:hidden">
