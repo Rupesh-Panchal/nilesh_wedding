@@ -21,10 +21,25 @@ import EnglishMuhurt from "./locales/English/muhurt.json";
 import MarathiMuhurt from "./locales/Marathi/muhurt.json";
 import HindiMuhurt from "./locales/Hindi/muhurt.json";
 
-// Venue translations  <-- ADDED IMPORTS
+// Venue translations
 import EnglishVenue from "./locales/English/venue.json";
 import MarathiVenue from "./locales/Marathi/venue.json";
 import HindiVenue from "./locales/Hindi/venue.json";
+
+// Little Ones translations
+import EnglishLittleOnes from "./locales/English/littleOnes.json";
+import MarathiLittleOnes from "./locales/Marathi/littleOnes.json";
+import HindiLittleOnes from "./locales/Hindi/littleOnes.json";
+
+// Contact translations
+import EnglishContact from "./locales/English/contact.json";
+import MarathiContact from "./locales/Marathi/contact.json";
+import HindiContact from "./locales/Hindi/contact.json";
+
+// Footer translations
+import EnglishFooter from "./locales/English/footer.json";
+import MarathiFooter from "./locales/Marathi/footer.json";
+import HindiFooter from "./locales/Hindi/footer.json";
 
 i18n.use(initReactI18next).init({
     resources: {
@@ -33,29 +48,40 @@ i18n.use(initReactI18next).init({
             hero: EnglishHero,
             family: EnglishFamily,
             muhurt: EnglishMuhurt,
-            venue: EnglishVenue, // <-- ADDED RESOURCE
+            venue: EnglishVenue,
+            littleOnes: EnglishLittleOnes,
+            contact: EnglishContact,
+            footer: EnglishFooter,
         },
+
         mr: {
             navbar: MarathiNavbar,
             hero: MarathiHero,
             family: MarathiFamily,
             muhurt: MarathiMuhurt,
-            venue: MarathiVenue, // <-- ADDED RESOURCE
+            venue: MarathiVenue,
+            littleOnes: MarathiLittleOnes,
+            contact: MarathiContact,
+            footer: MarathiFooter,
         },
+
         hi: {
             navbar: HindiNavbar,
             hero: HindiHero,
             family: HindiFamily,
             muhurt: HindiMuhurt,
-            venue: HindiVenue, // <-- ADDED RESOURCE
+            venue: HindiVenue,
+            littleOnes: HindiLittleOnes,
+            contact: HindiContact,
+            footer: HindiFooter,
         },
     },
 
     lng: "mr",
     fallbackLng: "mr",
 
-    // Added "venue" to the namespaces array
-    ns: ["navbar", "hero", "family", "muhurt", "venue"],
+    ns: ["navbar", "hero", "family", "muhurt", "venue", "littleOnes", "contact", "footer"],
+
     defaultNS: "navbar",
 
     interpolation: {
