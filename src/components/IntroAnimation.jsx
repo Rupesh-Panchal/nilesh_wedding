@@ -27,7 +27,7 @@ const IntroAnimation = () => {
     // SCROLL LOCK LOGIC
     // ==========================================
     useEffect(() => {
-        if (!isVisible) return; // If intro is gone, do nothing
+        if (!isVisible) return;
 
         const body = document.body;
         const html = document.documentElement;
@@ -37,19 +37,24 @@ const IntroAnimation = () => {
         const originalHtmlOverflow = html.style.overflow;
         const originalBodyHeight = body.style.height;
         const originalHtmlHeight = html.style.height;
+        const originalBodyOverscroll = body.style.overscrollBehavior;
+        const originalHtmlOverscroll = html.style.overscrollBehavior;
 
-        // Lock scrolling completely
+        // Lock scrolling completely (and fix iOS/Android body bounce)
         body.style.overflow = "hidden";
         html.style.overflow = "hidden";
         body.style.height = "100%";
         html.style.height = "100%";
+        body.style.overscrollBehavior = "none";
+        html.style.overscrollBehavior = "none";
 
-        // Cleanup when intro unmounts or isVisible changes
         return () => {
             body.style.overflow = originalBodyOverflow;
             html.style.overflow = originalHtmlOverflow;
             body.style.height = originalBodyHeight;
             html.style.height = originalHtmlHeight;
+            body.style.overscrollBehavior = originalBodyOverscroll;
+            html.style.overscrollBehavior = originalHtmlOverscroll;
         };
     }, [isVisible]);
 
@@ -61,7 +66,6 @@ const IntroAnimation = () => {
 
         removeTimerRef.current = setTimeout(() => {
             setIsVisible(false);
-
             window.__weddingIntroComplete = true;
             window.dispatchEvent(new Event("wedding-intro-complete"));
         }, FADE_DURATION + 100);
@@ -71,8 +75,9 @@ const IntroAnimation = () => {
 
     return (
         <div
-            // Added touch-none and overscroll-none to prevent scroll while allowing pull-to-refresh
-            className="fixed inset-0 z-[99999] h-screen h-[100svh] w-full overflow-hidden overscroll-none touch-none bg-[#fff0d5]"
+            // Removed touch-none to allow native scroll/pull-to-refresh at the browser level
+            // Kept overscroll-none to prevent the background page from rubber-banding
+            className="fixed inset-0 z-[99999] h-screen h-[100svh] w-full overflow-hidden overscroll-none bg-[#fff0d5]"
             style={{
                 opacity: isExiting ? 0 : 1,
                 transform: isExiting ? "scale(1.04)" : "scale(1)",
@@ -84,7 +89,6 @@ const IntroAnimation = () => {
             {/* Mobile blurred background */}
             <div className="absolute inset-0 md:hidden">
                 <img src={introImage} alt="" draggable="false" className="h-full w-full scale-110 object-cover object-center blur-xl opacity-50" />
-
                 <div className="absolute inset-0 bg-[#fff0d5]/40" />
             </div>
 
@@ -94,11 +98,11 @@ const IntroAnimation = () => {
             </div>
 
             {/* Mobile foreground artwork and entry button */}
-            {/* Added pb-32 to clear the language switcher globally fixed element */}
-            <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 pt-6 pb-32 md:hidden">
-                <div className={`w-full flex flex-col items-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
+            {/* Changed from justify-center to justify-between, added pb-32 for language switcher clearance */}
+            <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-4 pt-6 pb-32 md:hidden">
+                {/* Top Section (Mantra) */}
+                <div className={`w-full shrink-0 flex flex-col items-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
                     <p className="text-center font-serif text-[15px] font-bold tracking-wider text-[#8d202b]">{t("ganeshMantra")}</p>
-
                     <div className="mt-5 flex w-full max-w-[210px] items-center justify-center gap-3">
                         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#c89a39] to-[#c89a39]" />
                         <span className="text-2xl text-[#c99a32]">❋</span>
@@ -106,54 +110,59 @@ const IntroAnimation = () => {
                     </div>
                 </div>
 
+                {/* Middle Section (Image) */}
+                {/* Added min-h-0 so the image container doesn't force the layout out of bounds */}
                 <div
-                    className={`relative mt-2 flex min-h-0 w-full flex-1 items-center justify-center transition-all duration-[1800ms] ease-out ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"}`}
+                    className={`relative my-4 flex w-full flex-1 min-h-0 items-center justify-center transition-all duration-[1800ms] ease-out ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"}`}
                 >
                     <img
                         src={introImage}
                         alt={t("devotionalImageAlt")}
                         draggable="false"
                         fetchPriority="high"
-                        className="max-h-full w-full select-none object-contain drop-shadow-[0_15px_20px_rgba(112,55,12,0.22)]"
+                        className="max-h-full max-w-full select-none object-contain drop-shadow-[0_15px_20px_rgba(112,55,12,0.22)]"
                     />
                 </div>
 
-                <div
-                    className={`relative z-10 flex w-full shrink-0 flex-col items-center text-center transition-all duration-[1500ms] delay-200 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
-                >
-                    <p className="mt-2 text-[12px] font-semibold tracking-wider text-[#956a31]">{t("invitationHeading")}</p>
-                    <h1 className="mt-1 font-serif text-[29px] font-bold leading-tight text-[#982c35]">{t("groomName")}</h1>
+                {/* Bottom Section (Details, Button, Instruction) */}
+                <div className="w-full shrink-0 flex flex-col items-center">
+                    <div
+                        className={`relative z-10 flex w-full flex-col items-center text-center transition-all duration-[1500ms] delay-200 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
+                    >
+                        <p className="text-[12px] font-semibold tracking-wider text-[#956a31]">{t("invitationHeading")}</p>
+                        <h1 className="mt-1 font-serif text-[29px] font-bold leading-tight text-[#982c35]">{t("groomName")}</h1>
 
-                    <div className="my-2 flex w-full max-w-[170px] items-center justify-center gap-3">
-                        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#c99a39]" />
-                        <span className="text-xl text-[#d5a43b]">♡</span>
-                        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#c99a39]" />
+                        <div className="my-2 flex w-full max-w-[170px] items-center justify-center gap-3">
+                            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#c99a39]" />
+                            <span className="text-xl text-[#d5a43b]">♡</span>
+                            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#c99a39]" />
+                        </div>
+
+                        <h2 className="font-serif text-[29px] font-bold leading-tight text-[#982c35]">{t("brideName")}</h2>
+                        <p className="mt-3 text-[14px] font-bold tracking-wide text-[#8e2630]">{t("weddingTitle")}</p>
+
+                        <p className="mt-2 text-center text-[12px] font-medium tracking-wide text-[#956d35]">
+                            {t("weddingDate")}
+                            <span className="mx-2 text-[#d49b35]">✦</span>
+                            {t("weddingTime")}
+                        </p>
                     </div>
 
-                    <h2 className="font-serif text-[29px] font-bold leading-tight text-[#982c35]">{t("brideName")}</h2>
-                    <p className="mt-3 text-[14px] font-bold tracking-wide text-[#8e2630]">{t("weddingTitle")}</p>
-
-                    <p className="mt-2 text-center text-[12px] font-medium tracking-wide text-[#956d35]">
-                        {t("weddingDate")}
-                        <span className="mx-2 text-[#d49b35]">✦</span>
-                        {t("weddingTime")}
-                    </p>
-                </div>
-
-                <div
-                    className={`relative z-20 mt-auto flex w-full shrink-0 flex-col items-center pt-6 transition-all duration-[1500ms] delay-300 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
-                >
-                    <button
-                        onClick={handleEnter}
-                        disabled={isExiting}
-                        className="btn-kumkum flex w-[82%] max-w-[280px] items-center justify-center gap-3 rounded-full px-6 py-3 text-base font-bold tracking-wide shadow-[0_7px_18px_rgba(111,28,27,0.22)] transition-transform active:scale-95"
+                    <div
+                        className={`relative z-20 mt-6 flex w-full flex-col items-center transition-all duration-[1500ms] delay-300 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
                     >
-                        <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
-                        {t("enter")}
-                        <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
-                    </button>
+                        <button
+                            onClick={handleEnter}
+                            disabled={isExiting}
+                            className="btn-kumkum flex w-[82%] max-w-[280px] items-center justify-center gap-3 rounded-full px-6 py-3 text-base font-bold tracking-wide shadow-[0_7px_18px_rgba(111,28,27,0.22)] transition-transform active:scale-95"
+                        >
+                            <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                            {t("enter")}
+                            <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                        </button>
 
-                    <p className="mt-3 text-center text-[12px] font-medium tracking-wider text-[#8e2630]">{t("instruction")}</p>
+                        <p className="mt-3 text-center text-[12px] font-medium tracking-wider text-[#8e2630]">{t("instruction")}</p>
+                    </div>
                 </div>
             </div>
 
