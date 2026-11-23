@@ -26,10 +26,7 @@ const HangingBell = ({ className = "", delay = "0s", string = "h-14 md:h-24" }) 
 const SideVerse = ({ main, sub, position }) => {
     const isLeft = position === "left";
     return (
-        <div
-            aria-hidden="true"
-            className={`absolute top-[46%] hidden w-44 -translate-y-1/2 flex-col items-center text-center xl:flex ${isLeft ? "left-6 2xl:left-16" : "right-24 2xl:right-28"}`}
-        >
+        <div aria-hidden="true" className={`absolute top-[46%] hidden w-44 -translate-y-1/2 flex-col items-center text-center xl:flex ${isLeft ? "left-6 2xl:left-16" : "right-24 2xl:right-28"}`}>
             <Lotus className="h-16 w-16 animate-lotus-float" opacity={0.9} />
             <span className="my-4 h-16 w-px bg-gradient-to-b from-transparent via-gold to-transparent" />
             <p className="text-xl leading-9 text-kumkum">{main}</p>

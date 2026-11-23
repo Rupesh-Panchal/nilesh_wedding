@@ -77,10 +77,7 @@ const IntroAnimation = () => {
                 />
 
                 {/* Mobile Entry Button */}
-                <button
-                    onClick={handleEnter}
-                    className="btn-kumkum mt-4 px-9 py-3 text-base tracking-[0.2em]"
-                >
+                <button onClick={handleEnter} className="btn-kumkum mt-4 px-9 py-3 text-base tracking-[0.2em]">
                     <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
                     ENTER
                     <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
@@ -91,10 +88,7 @@ const IntroAnimation = () => {
 
             {/* Desktop foreground entry */}
             <div className="relative z-10 hidden h-full w-full flex-col items-center justify-end pb-16 md:flex">
-                <button
-                    onClick={handleEnter}
-                    className="btn-kumkum px-12 py-4 text-lg tracking-[0.25em]"
-                >
+                <button onClick={handleEnter} className="btn-kumkum px-12 py-4 text-lg tracking-[0.25em]">
                     <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
                     ENTER
                     <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
