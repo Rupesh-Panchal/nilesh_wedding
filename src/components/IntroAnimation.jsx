@@ -98,8 +98,8 @@ const IntroAnimation = () => {
             </div>
 
             {/* Mobile foreground artwork and entry button */}
-            {/* Increased pb-32 to pb-44 to push everything much higher */}
-            <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-4 pt-6 pb-44 md:hidden">
+            {/* Increased pb to pb-60 to push everything much higher */}
+            <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-4 pt-6 pb-60 md:hidden">
                 {/* Top Section (Mantra) */}
                 <div className={`w-full shrink-0 flex flex-col items-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
                     <p className="text-center font-serif text-[15px] font-bold tracking-wider text-[#8d202b]">{t("ganeshMantra")}</p>
