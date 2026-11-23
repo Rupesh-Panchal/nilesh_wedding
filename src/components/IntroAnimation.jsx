@@ -3,63 +3,65 @@ import { useTranslation } from "react-i18next";
 import introImage from "../assets/intro-devotional.png";
 import { IconSparkle } from "./ornaments/icons";
 
+// How long the intro takes to fade away (ms). Increase for a slower fade.
 const FADE_DURATION = 2500;
 
 const IntroAnimation = () => {
     const [isExiting, setIsExiting] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [isRevealed, setIsRevealed] = useState(false);
-
     const removeTimerRef = useRef(null);
 
     const { t } = useTranslation("intro");
 
-    // Initial reveal animation
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsRevealed(true);
-        }, 150);
+        const revealTimer = setTimeout(() => setIsRevealed(true), 100);
 
         return () => {
-            clearTimeout(timer);
+            clearTimeout(revealTimer);
             clearTimeout(removeTimerRef.current);
         };
     }, []);
 
-    // Lock website scrolling while intro is visible (But allow pull-to-refresh)
+    // ==========================================
+    // SCROLL LOCK LOGIC
+    // ==========================================
     useEffect(() => {
+        if (!isVisible) return; // If intro is gone, do nothing
+
         const body = document.body;
         const html = document.documentElement;
 
+        // Save original styles
         const originalBodyOverflow = body.style.overflow;
         const originalHtmlOverflow = html.style.overflow;
-        const originalBodyOverscroll = body.style.overscrollBehavior;
-        const originalHtmlOverscroll = html.style.overscrollBehavior;
+        const originalBodyHeight = body.style.height;
+        const originalHtmlHeight = html.style.height;
 
-        // Lock scrolling
+        // Lock scrolling completely
         body.style.overflow = "hidden";
         html.style.overflow = "hidden";
+        body.style.height = "100%";
+        html.style.height = "100%";
 
-        // Allow pull-to-refresh (set overscroll to auto instead of none)
-        body.style.overscrollBehavior = "auto";
-        html.style.overscrollBehavior = "auto";
-
+        // Cleanup when intro unmounts or isVisible changes
         return () => {
             body.style.overflow = originalBodyOverflow;
             html.style.overflow = originalHtmlOverflow;
-            body.style.overscrollBehavior = originalBodyOverscroll;
-            html.style.overscrollBehavior = originalHtmlOverscroll;
+            body.style.height = originalBodyHeight;
+            html.style.height = originalHtmlHeight;
         };
-    }, []);
+    }, [isVisible]);
 
-    // Enter invitation
     const handleEnter = () => {
         if (isExiting) return;
 
+        window.dispatchEvent(new Event("wedding-start"));
         setIsExiting(true);
 
         removeTimerRef.current = setTimeout(() => {
             setIsVisible(false);
+
             window.__weddingIntroComplete = true;
             window.dispatchEvent(new Event("wedding-intro-complete"));
         }, FADE_DURATION + 100);
@@ -69,54 +71,34 @@ const IntroAnimation = () => {
 
     return (
         <div
-            // REMOVED overscroll-none and touch-none to allow reload/pull-to-refresh
-            className="fixed inset-0 z-[99999] h-screen h-[100svh] w-full overflow-hidden bg-[#fff0d5]"
+            // Added touch-none and overscroll-none to prevent scroll while allowing pull-to-refresh
+            className="fixed inset-0 z-[99999] h-screen h-[100svh] w-full overflow-hidden overscroll-none touch-none bg-[#fff0d5]"
             style={{
                 opacity: isExiting ? 0 : 1,
                 transform: isExiting ? "scale(1.04)" : "scale(1)",
-                transition: `
-                    opacity ${FADE_DURATION}ms ease-in-out,
-                    transform ${FADE_DURATION}ms ease-in-out
-                `,
+                transition: `opacity ${FADE_DURATION}ms ease-in-out, transform ${FADE_DURATION}ms ease-in-out`,
                 pointerEvents: isExiting ? "none" : "auto",
                 willChange: "opacity, transform",
             }}
         >
-            {/* ================================== */}
-            {/* MOBILE BACKGROUND */}
-            {/* ================================== */}
-
+            {/* Mobile blurred background */}
             <div className="absolute inset-0 md:hidden">
-                <img src={introImage} alt="" draggable="false" className="h-full w-full scale-110 object-cover object-center blur-xl opacity-40" />
+                <img src={introImage} alt="" draggable="false" className="h-full w-full scale-110 object-cover object-center blur-xl opacity-50" />
 
-                <div className="absolute inset-0 bg-[#ffedca]/75" />
-
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,215,130,0.25)_0%,transparent_75%)]" />
+                <div className="absolute inset-0 bg-[#fff0d5]/40" />
             </div>
 
-            {/* ================================== */}
-            {/* DESKTOP BACKGROUND */}
-            {/* ================================== */}
-
+            {/* Desktop background */}
             <div className="absolute inset-0 hidden md:block">
                 <img src={introImage} alt="" draggable="false" className="h-full w-full object-cover object-center" />
-
-                <div className="absolute inset-0 bg-[#6d260d]/[0.04]" />
-
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(90,35,10,0.15)_100%)]" />
             </div>
 
-            {/* ================================== */}
-            {/* MOBILE INVITATION LAYOUT */}
-            {/* ================================== */}
-
-            {/* Increased padding-bottom to pb-36 (144px) to safely clear the language switcher */}
-            <div className="relative z-10 flex h-full w-full flex-col items-center px-4 pt-5 pb-36 md:hidden">
-                {/* Ganesh Mantra */}
+            {/* Mobile foreground artwork and entry button */}
+            {/* Added pb-32 to clear the language switcher globally fixed element */}
+            <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 pt-6 pb-32 md:hidden">
                 <div className={`w-full flex flex-col items-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
                     <p className="text-center font-serif text-[15px] font-bold tracking-wider text-[#8d202b]">{t("ganeshMantra")}</p>
 
-                    {/* Decorative Divider */}
                     <div className="mt-5 flex w-full max-w-[210px] items-center justify-center gap-3">
                         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#c89a39] to-[#c89a39]" />
                         <span className="text-2xl text-[#c99a32]">❋</span>
@@ -124,11 +106,8 @@ const IntroAnimation = () => {
                     </div>
                 </div>
 
-                {/* Devotional Image */}
                 <div
-                    className={`relative mt-5 flex min-h-0 w-full flex-1 items-center justify-center transition-all duration-[1800ms] ease-out ${
-                        isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"
-                    }`}
+                    className={`relative mt-2 flex min-h-0 w-full flex-1 items-center justify-center transition-all duration-[1800ms] ease-out ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"}`}
                 >
                     <img
                         src={introImage}
@@ -139,14 +118,8 @@ const IntroAnimation = () => {
                     />
                 </div>
 
-                {/* ================================== */}
-                {/* WEDDING INVITATION DETAILS */}
-                {/* ================================== */}
-
                 <div
-                    className={`relative z-10 flex w-full shrink-0 flex-col items-center text-center transition-all duration-[1500ms] delay-200 ${
-                        isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-                    }`}
+                    className={`relative z-10 flex w-full shrink-0 flex-col items-center text-center transition-all duration-[1500ms] delay-200 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
                 >
                     <p className="mt-2 text-[12px] font-semibold tracking-wider text-[#956a31]">{t("invitationHeading")}</p>
                     <h1 className="mt-1 font-serif text-[29px] font-bold leading-tight text-[#982c35]">{t("groomName")}</h1>
@@ -167,13 +140,8 @@ const IntroAnimation = () => {
                     </p>
                 </div>
 
-                {/* ================================== */}
-                {/* ENTER BUTTON + INSTRUCTION */}
-                {/* ================================== */}
                 <div
-                    className={`relative z-20 mt-auto flex w-full shrink-0 flex-col items-center pt-6 transition-all duration-[1500ms] delay-300 ${
-                        isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-                    }`}
+                    className={`relative z-20 mt-auto flex w-full shrink-0 flex-col items-center pt-6 transition-all duration-[1500ms] delay-300 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
                 >
                     <button
                         onClick={handleEnter}
@@ -189,25 +157,22 @@ const IntroAnimation = () => {
                 </div>
             </div>
 
-            {/* ================================== */}
-            {/* DESKTOP FOREGROUND */}
-            {/* ================================== */}
+            {/* Desktop foreground entry */}
+            <div className="relative z-10 hidden h-full w-full flex-col items-center justify-end pb-16 md:flex">
+                <button onClick={handleEnter} className="btn-kumkum flex items-center gap-3 px-12 py-4 text-lg font-bold tracking-[0.25em]">
+                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                    {t("enter")}
+                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                </button>
 
-            <div className="relative z-10 hidden h-full w-full flex-col items-center justify-end pb-12 md:flex">
-                <div className={`flex flex-col items-center transition-all duration-[1800ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
-                    <button
-                        onClick={handleEnter}
-                        disabled={isExiting}
-                        className="btn-kumkum flex items-center gap-3 rounded-full px-12 py-4 text-lg font-bold tracking-[0.2em] shadow-lg transition-transform active:scale-95"
-                    >
-                        <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
-                        {t("enter")}
-                        <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
-                    </button>
-
-                    <p className="mt-4 text-base tracking-wider text-[#8e2630]">{t("instruction")}</p>
-                </div>
+                <p className="mt-4 text-base tracking-wider text-kumkum">{t("instruction")}</p>
             </div>
+
+            {/* Desktop subtle glow */}
+            <div className="pointer-events-none absolute inset-0 hidden md:block bg-[radial-gradient(ellipse_at_center,rgba(255,215,130,0.12)_0%,transparent_70%)]" />
+
+            {/* Mobile subtle glow */}
+            <div className="pointer-events-none absolute inset-0 md:hidden bg-[radial-gradient(ellipse_at_center,rgba(255,215,130,0.16)_0%,transparent_70%)]" />
         </div>
     );
 };
