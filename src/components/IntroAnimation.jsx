@@ -98,12 +98,12 @@ const IntroAnimation = () => {
             </div>
 
             {/* Mobile foreground artwork and entry button */}
-            {/* Changed from justify-center to justify-between, added pb-32 for language switcher clearance */}
-            <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-4 pt-6 pb-32 md:hidden">
+            {/* Increased pb-32 to pb-44 to push everything much higher */}
+            <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-4 pt-6 pb-44 md:hidden">
                 {/* Top Section (Mantra) */}
                 <div className={`w-full shrink-0 flex flex-col items-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
                     <p className="text-center font-serif text-[15px] font-bold tracking-wider text-[#8d202b]">{t("ganeshMantra")}</p>
-                    <div className="mt-5 flex w-full max-w-[210px] items-center justify-center gap-3">
+                    <div className="mt-4 flex w-full max-w-[210px] items-center justify-center gap-3">
                         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#c89a39] to-[#c89a39]" />
                         <span className="text-2xl text-[#c99a32]">❋</span>
                         <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#c89a39] to-[#c89a39]" />
@@ -111,9 +111,9 @@ const IntroAnimation = () => {
                 </div>
 
                 {/* Middle Section (Image) */}
-                {/* Added min-h-0 so the image container doesn't force the layout out of bounds */}
+                {/* Reduced margin to my-2 */}
                 <div
-                    className={`relative my-4 flex w-full flex-1 min-h-0 items-center justify-center transition-all duration-[1800ms] ease-out ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"}`}
+                    className={`relative my-2 flex w-full flex-1 min-h-0 items-center justify-center transition-all duration-[1800ms] ease-out ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"}`}
                 >
                     <img
                         src={introImage}
@@ -148,8 +148,9 @@ const IntroAnimation = () => {
                         </p>
                     </div>
 
+                    {/* Reduced top margin to mt-4 */}
                     <div
-                        className={`relative z-20 mt-6 flex w-full flex-col items-center transition-all duration-[1500ms] delay-300 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
+                        className={`relative z-20 mt-4 flex w-full flex-col items-center transition-all duration-[1500ms] delay-300 ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
                     >
                         <button
                             onClick={handleEnter}
