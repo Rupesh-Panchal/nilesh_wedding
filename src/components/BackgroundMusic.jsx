@@ -18,10 +18,13 @@ const languages = [
 const BackgroundMusic = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLangOpen, setIsLangOpen] = useState(false);
+    const [showMusicButton, setShowMusicButton] = useState(() => typeof window !== "undefined" && !!window.__weddingIntroComplete);
+
     const langRef = useRef(null);
     const { i18n } = useTranslation();
 
     const currentLanguage = (i18n.resolvedLanguage || i18n.language || "mr").split("-")[0];
+
     const currentLangLabel = languages.find((l) => l.code === currentLanguage)?.label || "मराठी";
 
     useEffect(() => {
@@ -31,7 +34,10 @@ const BackgroundMusic = () => {
         weddingAudio.addEventListener("pause", syncState);
         weddingAudio.addEventListener("ended", syncState);
 
+        // Show music button after visitor clicks ENTER
         const handleWeddingStart = async () => {
+            setShowMusicButton(true);
+
             // Do not start if the user has already paused it
             if (!weddingAudio.paused) return;
 
@@ -52,7 +58,7 @@ const BackgroundMusic = () => {
         };
     }, []);
 
-    // Close the language dropdown when tapping outside of it
+    // Close language dropdown when tapping outside
     useEffect(() => {
         const handleOutside = (event) => {
             if (langRef.current && !langRef.current.contains(event.target)) {
@@ -61,7 +67,9 @@ const BackgroundMusic = () => {
         };
 
         document.addEventListener("mousedown", handleOutside);
-        document.addEventListener("touchstart", handleOutside, { passive: true });
+        document.addEventListener("touchstart", handleOutside, {
+            passive: true,
+        });
 
         return () => {
             document.removeEventListener("mousedown", handleOutside);
@@ -124,23 +132,27 @@ const BackgroundMusic = () => {
                     <span aria-hidden="true" className="font-heading text-lg leading-none text-gold-deep">
                         अ
                     </span>
+
                     <span>{currentLangLabel}</span>
+
                     <IconChevron className={`h-4 w-4 transition-transform duration-200 ${isLangOpen ? "" : "rotate-180"}`} />
                 </button>
             </div>
 
-            {/* RIGHT: Music button */}
-            <button
-                type="button"
-                onClick={toggleMusic}
-                aria-label={isPlaying ? "Pause music" : "Play music"}
-                title={isPlaying ? "Pause music" : "Play music"}
-                className="fixed bottom-[calc(2.25rem+env(safe-area-inset-bottom))] right-5 z-[99999] flex h-14 w-14 items-center justify-center rounded-full border border-gold/70 bg-ivory/95 text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-parchment active:scale-95 md:bottom-[calc(1.25rem+env(safe-area-inset-bottom))]"
-            >
-                {isPlaying ? <IconPause className="h-6 w-6" strokeWidth={1.8} /> : <IconMusic className="h-6 w-6" strokeWidth={1.6} />}
+            {/* RIGHT: Music button - hidden during intro */}
+            {showMusicButton && (
+                <button
+                    type="button"
+                    onClick={toggleMusic}
+                    aria-label={isPlaying ? "Pause music" : "Play music"}
+                    title={isPlaying ? "Pause music" : "Play music"}
+                    className="fixed bottom-[calc(2.25rem+env(safe-area-inset-bottom))] right-5 z-[99999] flex h-14 w-14 items-center justify-center rounded-full border border-gold/70 bg-ivory/95 text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-parchment active:scale-95 md:bottom-[calc(1.25rem+env(safe-area-inset-bottom))]"
+                >
+                    {isPlaying ? <IconPause className="h-6 w-6" strokeWidth={1.8} /> : <IconMusic className="h-6 w-6" strokeWidth={1.6} />}
 
-                {isPlaying && <span className="pointer-events-none absolute inset-0 rounded-full border border-gold animate-ping opacity-30" />}
-            </button>
+                    {isPlaying && <span className="pointer-events-none absolute inset-0 rounded-full border border-gold animate-ping opacity-30" />}
+                </button>
+            )}
         </>
     );
 };

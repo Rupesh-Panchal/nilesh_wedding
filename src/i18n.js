@@ -41,6 +41,11 @@ import EnglishFooter from "./locales/English/footer.json";
 import MarathiFooter from "./locales/Marathi/footer.json";
 import HindiFooter from "./locales/Hindi/footer.json";
 
+// Intro translations
+import EnglishIntro from "./locales/English/intro.json";
+import MarathiIntro from "./locales/Marathi/intro.json";
+import HindiIntro from "./locales/Hindi/intro.json";
+
 i18n.use(initReactI18next).init({
     resources: {
         en: {
@@ -52,6 +57,7 @@ i18n.use(initReactI18next).init({
             littleOnes: EnglishLittleOnes,
             contact: EnglishContact,
             footer: EnglishFooter,
+            intro: EnglishIntro,
         },
 
         mr: {
@@ -63,6 +69,7 @@ i18n.use(initReactI18next).init({
             littleOnes: MarathiLittleOnes,
             contact: MarathiContact,
             footer: MarathiFooter,
+            intro: MarathiIntro,
         },
 
         hi: {
@@ -74,13 +81,14 @@ i18n.use(initReactI18next).init({
             littleOnes: HindiLittleOnes,
             contact: HindiContact,
             footer: HindiFooter,
+            intro: HindiIntro,
         },
     },
 
     lng: "mr",
     fallbackLng: "mr",
 
-    ns: ["navbar", "hero", "family", "muhurt", "venue", "littleOnes", "contact", "footer"],
+    ns: ["navbar", "hero", "family", "muhurt", "venue", "littleOnes", "contact", "footer", "intro"],
 
     defaultNS: "navbar",
 
@@ -91,8 +99,11 @@ i18n.use(initReactI18next).init({
 
 // Keep the page's lang attribute in sync with the chosen language
 const syncHtmlLang = (lng) => {
-    if (typeof document !== "undefined") document.documentElement.lang = (lng || "mr").split("-")[0];
+    if (typeof document !== "undefined") {
+        document.documentElement.lang = (lng || "mr").split("-")[0];
+    }
 };
+
 syncHtmlLang(i18n.language);
 i18n.on("languageChanged", syncHtmlLang);
 
