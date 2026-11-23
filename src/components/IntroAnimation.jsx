@@ -92,16 +92,17 @@ const IntroAnimation = () => {
                 <div className="absolute inset-0 bg-[#fff0d5]/40" />
             </div>
 
-            {/* Desktop background */}
+            {/* Desktop background (only fills any leftover side/top space around the full image) */}
             <div className="absolute inset-0 hidden md:block">
-                <img src={introImage} alt="" draggable="false" className="h-full w-full object-cover object-center" />
+                <img src={introImage} alt="" draggable="false" className="h-full w-full scale-110 object-cover object-center blur-2xl opacity-70" />
+                <div className="absolute inset-0 bg-[#fff0d5]/30" />
             </div>
 
             {/* Mobile foreground artwork and entry button */}
             {/* Increased pb to pb-60 to push everything much higher */}
             <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-4 pt-6 pb-50 md:hidden">
                 {/* Top Section (Mantra) */}
-                <div className={`w-full shrink-0 flex flex-col items-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
+                <div className={`w-full shrink-0 flex pt-20 flex-col items-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
                     <p className="text-center font-serif text-[15px] font-bold tracking-wider text-[#8d202b]">{t("ganeshMantra")}</p>
                     <div className="mt-4 flex w-full max-w-[210px] items-center justify-center gap-3">
                         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#c89a39] to-[#c89a39]" />
@@ -111,17 +112,14 @@ const IntroAnimation = () => {
                 </div>
 
                 {/* Middle Section (Image) */}
-                {/* Reduced margin to my-2 */}
                 <div
-                    className={`relative my-2 flex w-full flex-1 min-h-0 items-center justify-center transition-all duration-[1800ms] ease-out ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"}`}
+                    className={`relative my-2 w-full flex-1 min-h-0 transition-all duration-[1800ms] ease-out ${isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]"}`}
+                    style={{
+                        WebkitMaskImage: "linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%)",
+                        maskImage: "linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%)",
+                    }}
                 >
-                    <img
-                        src={introImage}
-                        alt={t("devotionalImageAlt")}
-                        draggable="false"
-                        fetchPriority="high"
-                        className="max-h-full max-w-full select-none object-contain drop-shadow-[0_15px_20px_rgba(112,55,12,0.22)]"
-                    />
+                    <img src={introImage} alt={t("devotionalImageAlt")} draggable="false" fetchPriority="high" className="h-full w-full select-none object-cover object-center" />
                 </div>
 
                 {/* Bottom Section (Details, Button, Instruction) */}
@@ -167,15 +165,48 @@ const IntroAnimation = () => {
                 </div>
             </div>
 
-            {/* Desktop foreground entry */}
-            <div className="relative z-10 hidden h-full w-full flex-col items-center justify-end pb-16 md:flex">
-                <button onClick={handleEnter} className="btn-kumkum flex items-center gap-3 px-12 py-4 text-lg font-bold tracking-[0.25em]">
-                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
-                    {t("enter")}
-                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
-                </button>
+            {/* Desktop foreground: full image (16:9, never cropped) + overlays positioned by % */}
+            <div className="absolute inset-0 z-10 hidden items-center justify-center md:flex">
+                <div
+                    className="relative"
+                    style={{
+                        aspectRatio: "1672 / 941",
+                        // Largest 16:9 box that fits inside the window
+                        width: "min(100vw, calc(100svh * 1672 / 941))",
+                    }}
+                >
+                    <img src={introImage} alt={t("devotionalImageAlt")} draggable="false" fetchPriority="high" className="absolute inset-0 h-full w-full select-none" />
 
-                <p className="mt-4 text-base tracking-wider text-kumkum">{t("instruction")}</p>
+                    {/* Mantra: sits in the gap just below the Ganesha symbol */}
+                    {/* Move up/down by changing top (%) */}
+                    <div
+                        className={`absolute left-1/2 w-full -translate-x-1/2 text-center transition-all duration-[1200ms] ${isRevealed ? "opacity-100" : "opacity-0 -translate-y-4"}`}
+                        style={{ top: "16.2%" }}
+                    >
+                        <p className="font-serif font-bold tracking-wider text-[#8d202b]" style={{ fontSize: "min(1.5vw, 2.5svh)", lineHeight: 1.2, textShadow: "0 0 10px rgba(255,240,213,0.9)" }}>
+                            {t("ganeshMantra")}
+                        </p>
+                    </div>
+
+                    {/* Button + instruction: sits in the empty bottom area of the artwork */}
+                    {/* Move up/down by changing top (%) */}
+                    <div
+                        className={`absolute left-1/2 flex w-full -translate-x-1/2 flex-col items-center transition-all duration-[1800ms] ${isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
+                        style={{ top: "85.5%" }}
+                    >
+                        <button
+                            onClick={handleEnter}
+                            disabled={isExiting}
+                            className="btn-kumkum flex items-center gap-3 px-12 py-3 text-lg font-bold tracking-[0.25em] shadow-[0_8px_22px_rgba(111,28,27,0.28)] transition-transform hover:scale-[1.03] active:scale-95"
+                        >
+                            <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                            {t("enter")}
+                            <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                        </button>
+
+                        <p className="mt-3 text-center text-base font-semibold tracking-wider text-[#8e2630]">{t("instruction")}</p>
+                    </div>
+                </div>
             </div>
 
             {/* Desktop subtle glow */}
