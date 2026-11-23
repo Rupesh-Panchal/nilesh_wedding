@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap");
 
 @import "tailwindcss";
 
@@ -45,6 +45,51 @@ body {
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     margin: 0;
+}
+
+/* Traditional Wedding Typography & Surface Helpers */
+.font-wedding-display {
+    font-family: var(--font-display);
+}
+
+.font-wedding-body {
+    font-family: var(--font-body);
+}
+
+.font-wedding-devanagari {
+    font-family: var(--font-devanagari);
+}
+
+.patrika-pill-box {
+    background: linear-gradient(180deg, #fffdf9 0%, #fcf4e3 100%);
+    border: 1.5px solid #5b0309;
+    border-radius: 14px;
+    box-shadow:
+        var(--shadow-chandan),
+        inset 0 0 0 1px rgba(195, 169, 72, 0.45);
+}
+
+.patrika-card {
+    background: linear-gradient(180deg, #fffdf9 0%, #faf3e6 100%);
+    border: 1.5px solid rgba(91, 3, 9, 0.55);
+    border-radius: 18px;
+    box-shadow:
+        var(--shadow-chandan),
+        inset 0 0 0 4px #fcf9f8,
+        inset 0 0 0 5.5px rgba(195, 169, 72, 0.65);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.patrika-card:hover {
+    transform: translateY(-3px);
+    border-color: #5b0309;
+    box-shadow:
+        0 14px 34px -6px rgba(91, 3, 9, 0.14),
+        inset 0 0 0 4px #fcf9f8,
+        inset 0 0 0 5.5px rgba(195, 169, 72, 0.9);
 }
 
 /* ========================================

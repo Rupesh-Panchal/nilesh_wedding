@@ -5,15 +5,15 @@ import ganeshImg from "../assets/ganesh.png";
 const LotusDecoration = ({ className = "" }) => {
     return (
         <div aria-hidden="true" className={`pointer-events-none ${className}`}>
-            <svg viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 md:w-20 md:h-20 drop-shadow-[0_2px_5px_rgba(197,160,40,0.15)]">
-                <path d="M50 8 C37 25 39 39 50 49 C61 39 63 25 50 8Z" fill="#D4AF37" fillOpacity="0.18" stroke="#C5A028" strokeWidth="1.5" />
-                <path d="M48 48 C31 20 17 26 18 42 C19 55 35 58 48 48Z" fill="#D4AF37" fillOpacity="0.13" stroke="#C5A028" strokeWidth="1.3" />
-                <path d="M52 48 C69 20 83 26 82 42 C81 55 65 58 52 48Z" fill="#D4AF37" fillOpacity="0.13" stroke="#C5A028" strokeWidth="1.3" />
-                <path d="M46 52 C22 39 7 43 10 55 C14 67 34 65 46 52Z" fill="#E8CB75" fillOpacity="0.18" stroke="#D4AF37" strokeWidth="1.2" />
-                <path d="M54 52 C78 39 93 43 90 55 C86 67 66 65 54 52Z" fill="#E8CB75" fillOpacity="0.18" stroke="#D4AF37" strokeWidth="1.2" />
-                <path d="M12 60 Q50 80 88 60 Q72 78 50 77 Q28 78 12 60Z" fill="#D4AF37" fillOpacity="0.16" stroke="#C5A028" strokeWidth="1.4" />
-                <circle cx="50" cy="53" r="3" fill="#D4AF37" />
-                <path d="M30 70 Q50 76 70 70" stroke="#C5A028" strokeWidth="1" strokeLinecap="round" />
+            <svg viewBox="0 0 116 92" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 md:w-20 md:h-20 drop-shadow-[0_4px_12px_rgba(184,41,47,0.16)]">
+                <path d="M58 8 C44 26 46 42 58 53 C70 42 72 26 58 8Z" fill="#E59A24" fillOpacity="0.22" stroke="#B8292F" strokeWidth="1.4" />
+                <path d="M55 51 C35 20 18 27 19 45 C20 59 39 62 55 51Z" fill="#E59A24" fillOpacity="0.16" stroke="#C69232" strokeWidth="1.35" />
+                <path d="M61 51 C81 20 98 27 97 45 C96 59 77 62 61 51Z" fill="#E59A24" fillOpacity="0.16" stroke="#C69232" strokeWidth="1.35" />
+                <path d="M51 56 C23 41 6 46 10 59 C14 72 37 70 51 56Z" fill="#F5C74D" fillOpacity="0.24" stroke="#C69232" strokeWidth="1.25" />
+                <path d="M65 56 C93 41 110 46 106 59 C102 72 79 70 65 56Z" fill="#F5C74D" fillOpacity="0.24" stroke="#C69232" strokeWidth="1.25" />
+                <path d="M14 65 Q58 88 102 65 Q82 85 58 84 Q34 85 14 65Z" fill="#B8292F" fillOpacity="0.12" stroke="#B8292F" strokeWidth="1.35" />
+                <circle cx="58" cy="57" r="3.5" fill="#B8292F" />
+                <path d="M35 76 Q58 83 81 76" stroke="#C69232" strokeWidth="1.15" strokeLinecap="round" />
             </svg>
         </div>
     );
@@ -22,49 +22,12 @@ const LotusDecoration = ({ className = "" }) => {
 const GoldenSparkles = () => {
     return (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-visible">
-            <span className="absolute left-[23%] top-[25%] text-[#D4AF37] text-xs animate-pulse opacity-60">✦</span>
-            <span className="absolute left-[33%] top-[70%] text-[#C5A028] text-[10px] animate-pulse opacity-50 [animation-delay:700ms]">✧</span>
-            <span className="absolute right-[23%] top-[25%] text-[#D4AF37] text-xs animate-pulse opacity-60 [animation-delay:500ms]">✦</span>
-            <span className="absolute right-[33%] top-[70%] text-[#C5A028] text-[10px] animate-pulse opacity-50 [animation-delay:1000ms]">✧</span>
-            <span className="absolute left-[15%] top-[48%] text-[#D4AF37] text-[9px] animate-pulse opacity-40 [animation-delay:300ms]">✧</span>
-            <span className="absolute right-[15%] top-[48%] text-[#D4AF37] text-[9px] animate-pulse opacity-40 [animation-delay:800ms]">✧</span>
-        </div>
-    );
-};
-
-const SideDecoration = ({ main, sub, position }) => {
-    const isLeft = position === "left";
-
-    return (
-        <div
-            aria-hidden="true"
-            className={`
-                hidden lg:flex flex-col items-center
-                absolute top-1/2 -translate-y-1/2
-                w-48 xl:w-52
-                ${isLeft ? "left-4 xl:left-8" : "right-4 xl:right-8"}
-                opacity-70
-            `}
-        >
-            <div className="h-20 flex items-center justify-center mb-4">
-                <LotusDecoration className={`opacity-80 animate-[float_5s_ease-in-out_infinite] ${isLeft ? "" : "[animation-delay:1s]"}`} />
-            </div>
-            <div className="w-px h-16 bg-gradient-to-b from-transparent via-[#c5a028] to-transparent mb-5" />
-            <div className="w-full text-[#5b0309] text-center space-y-4">
-                <p className="font-devanagari text-xl font-bold tracking-widest leading-relaxed min-h-[32px]">{main}</p>
-                <div className="flex items-center justify-center gap-2 h-10">
-                    <div className="w-6 h-px bg-[#c5a028]/60" />
-                    <span className="text-3xl text-[#c5a028]">✥</span>
-                    <div className="w-6 h-px bg-[#c5a028]/60" />
-                </div>
-                <div className="h-16 flex items-start justify-center">
-                    <p className="font-devanagari text-sm text-gray-500 italic max-w-[150px] mx-auto text-balance leading-relaxed">{sub}</p>
-                </div>
-            </div>
-            <div className="w-px h-20 bg-gradient-to-b from-transparent via-[#c5a028] to-transparent mt-6" />
-            <div className="h-8 flex items-center justify-center">
-                <span className="text-[#c5a028] text-xl">✧</span>
-            </div>
+            <span className="absolute left-[14%] top-[20%] text-[#D4AF37] text-sm animate-pulse opacity-80">✦</span>
+            <span className="absolute left-[26%] top-[74%] text-[#B8292F] text-xs animate-pulse opacity-65 [animation-delay:700ms]">✧</span>
+            <span className="absolute right-[14%] top-[20%] text-[#D4AF37] text-sm animate-pulse opacity-80 [animation-delay:500ms]">✦</span>
+            <span className="absolute right-[26%] top-[74%] text-[#B8292F] text-xs animate-pulse opacity-65 [animation-delay:1000ms]">✧</span>
+            <span className="absolute left-[8%] top-[50%] text-[#E59A24] text-xs animate-pulse opacity-70 [animation-delay:300ms]">❀</span>
+            <span className="absolute right-[8%] top-[50%] text-[#E59A24] text-xs animate-pulse opacity-70 [animation-delay:800ms]">❀</span>
         </div>
     );
 };
@@ -73,77 +36,104 @@ const HeroSection = () => {
     const { t } = useTranslation("hero");
 
     return (
-        // Removed min-h-screen and changed items-center to items-start for mobile
         <div className="relative w-full overflow-hidden">
-            <div className="w-full max-w-7xl mx-auto relative flex flex-col lg:flex-row justify-center px-4 md:px-6 lg:px-8 pt-6 md:pt-12 pb-8 md:pb-16">
-                <SideDecoration position="left" main={t("leftDecoration.main")} sub={t("leftDecoration.sub")} />
-                <SideDecoration position="right" main={t("rightDecoration.main")} sub={t("rightDecoration.sub")} />
+            <div className="w-full max-w-5xl mx-auto relative flex flex-col items-center px-4 sm:px-6 lg:px-8 pt-6 md:pt-12 pb-8 md:pb-16">
+                {/* Top Invocation Banner */}
+                <div className="relative z-10 flex items-center gap-2.5 bg-[#FBF0D4] border border-[#D4AF37] px-6 py-2 rounded-full mb-6 md:mb-9 shadow-[0_6px_18px_rgba(90,18,25,0.08)]">
+                    <span className="text-[#B8292F] text-xs animate-pulse">✦</span>
+                    <p className="font-patrika-classic text-[#5A1219] text-sm md:text-base tracking-wider font-bold">{t("ganeshMantra")}</p>
+                    <span className="text-[#B8292F] text-xs animate-pulse">✦</span>
+                </div>
 
-                {/* Main Content - Reduced top padding (pt-2) */}
-                <main className="relative z-10 flex flex-col items-center text-center w-full max-w-3xl mx-auto pt-2 md:pt-0">
-                    <div className="flex items-center gap-2 bg-[#fcf0c7] border border-[#e1c561] px-6 py-2 rounded-full mb-6 md:mb-10 shadow-sm">
-                        <span className="text-secondary text-xs">✦</span>
-                        <p className="font-devanagari text-secondary text-sm tracking-widest font-semibold">{t("ganeshMantra")}</p>
-                        <span className="text-secondary text-xs">✦</span>
-                    </div>
-
-                    <div className="relative flex items-center justify-center mb-8 md:mb-10 group w-full max-w-lg md:max-w-2xl">
+                {/* Mandap Arch Stage: Lotus Flanks + Swinging Lamps + Ganesh Medallion */}
+                <div className="relative z-10 w-full max-w-4xl flex flex-col items-center justify-center mb-6 md:mb-9">
+                    <div className="relative flex items-center justify-center w-full max-w-xl md:max-w-2xl">
                         <GoldenSparkles />
 
-                        <div className="absolute left-[-10px] md:left-10 top-0 flex flex-col items-center animate-swing origin-top">
-                            <div className="w-[1px] h-16 md:h-24 bg-gradient-to-b from-transparent to-[#745b00]"></div>
+                        {/* Left Swinging Brass Lamp */}
+                        <div className="absolute left-0 sm:left-4 md:left-10 top-0 flex flex-col items-center animate-swing origin-top z-20">
+                            <div className="w-[1.5px] h-16 md:h-24 bg-gradient-to-b from-transparent to-[#745B00]" />
                             <div className="relative">
-                                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 md:w-6 md:h-6 bg-[#fcd358] blur-md opacity-60 animate-pulse"></div>
-                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" className="relative z-10 drop-shadow-md md:w-[40px] md:h-[40px]">
-                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#745b00" fillOpacity="0.2" />
+                                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 md:w-6 md:h-6 bg-[#FCD358] blur-md opacity-65 animate-pulse" />
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="relative z-10 drop-shadow-md md:w-[40px] md:h-[40px]">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#745B00" fillOpacity="0.2" />
                                     <path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" fill="#D4AF37" />
                                     <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="#FCF0C7" />
                                 </svg>
                             </div>
                         </div>
 
-                        <div className="absolute right-[-10px] md:right-10 top-0 flex flex-col items-center animate-swing origin-top" style={{ animationDelay: "1s" }}>
-                            <div className="w-[1px] h-16 md:h-24 bg-gradient-to-b from-transparent to-[#745b00]"></div>
+                        {/* Right Swinging Brass Lamp */}
+                        <div className="absolute right-0 sm:right-4 md:right-10 top-0 flex flex-col items-center animate-swing origin-top z-20" style={{ animationDelay: "1s" }}>
+                            <div className="w-[1.5px] h-16 md:h-24 bg-gradient-to-b from-transparent to-[#745B00]" />
                             <div className="relative">
-                                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 md:w-6 md:h-6 bg-[#fcd358] blur-md opacity-60 animate-pulse"></div>
-                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" className="relative z-10 drop-shadow-md md:w-[40px] md:h-[40px]">
-                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#745b00" fillOpacity="0.2" />
+                                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 md:w-6 md:h-6 bg-[#FCD358] blur-md opacity-65 animate-pulse" />
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="relative z-10 drop-shadow-md md:w-[40px] md:h-[40px]">
+                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#745B00" fillOpacity="0.2" />
                                     <path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" fill="#D4AF37" />
                                     <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" fill="#FCF0C7" />
                                 </svg>
                             </div>
                         </div>
 
-                        <div className="relative z-10 bg-white p-2 rounded-2xl shadow-[0_4px_20px_rgba(197,160,40,0.2)] transition-transform duration-700 hover:scale-105 mx-auto">
-                            <div className="absolute inset-0 bg-[#fcf0c7] blur-2xl opacity-60 rounded-full scale-110 -z-10 animate-pulse"></div>
-                            <img src={ganeshImg} alt={t("ganeshImageAlt")} className="w-[140px] h-[140px] md:w-[240px] md:h-[240px] object-contain rounded-xl" />
+                        {/* Sacred Ganesha Arch Frame */}
+                        <div className="relative z-10 bg-gradient-to-b from-[#FFFDF9] via-[#FCF6E8] to-[#F7E8C8] pt-8 pb-4 px-5 md:pt-10 md:pb-5 md:px-7 rounded-t-[130px] rounded-b-3xl border-2 border-[#C69232] shadow-[0_14px_34px_rgba(90,18,25,0.13)] transition-transform duration-700 hover:scale-105 mx-auto">
+                            <div aria-hidden="true" className="absolute inset-0 bg-[#FCF0C7] blur-2xl opacity-65 rounded-full scale-110 -z-10 animate-pulse" />
+                            <img src={ganeshImg} alt={t("ganeshImageAlt")} className="w-[144px] h-[144px] sm:w-[172px] sm:h-[172px] md:w-[228px] md:h-[228px] object-contain rounded-2xl" />
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 font-devanagari text-xs md:text-sm text-[#745b00] font-bold mb-4">
-                        <p>{t("ganeshBlessing")}</p>
-                        <div className="w-1.5 h-1.5 bg-[#745b00] rounded-full animate-ping"></div>
-                        <p>{t("ravळनाथBlessing")}</p>
+                    {/* Flanking Auspicious Blessings Row (Left & Right of Centerpiece) */}
+                    <div className="mt-5 md:mt-6 w-full grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-6">
+                        {/* Left Blessing */}
+                        <div className="flex flex-col items-center text-center">
+                            <LotusDecoration className="animate-[float_5s_ease-in-out_infinite] mb-1.5" />
+                            <p className="font-patrika-classic text-lg sm:text-xl font-bold text-[#5A1219] tracking-wide">{t("leftDecoration.main")}</p>
+                            <p className="font-patrika-clear text-xs sm:text-sm text-[#6E3439] max-w-[220px] leading-snug">{t("leftDecoration.sub")}</p>
+                        </div>
+
+                        {/* Center Deity Invocation */}
+                        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 font-patrika-classic text-xs sm:text-sm md:text-base text-[#745B00] font-bold px-4 py-2 rounded-full bg-[#FCF6E8]/90 border border-[#E1C561]/70">
+                            <p>{t("ganeshBlessing")}</p>
+                            <span aria-hidden="true" className="w-1.5 h-1.5 bg-[#745B00] rounded-full animate-ping" />
+                            <p>{t("ravळनाथBlessing")}</p>
+                        </div>
+
+                        {/* Right Blessing */}
+                        <div className="flex flex-col items-center text-center">
+                            <LotusDecoration className="animate-[float_5s_ease-in-out_infinite] [animation-delay:1s] mb-1.5" />
+                            <p className="font-patrika-classic text-lg sm:text-xl font-bold text-[#5A1219] tracking-wide">{t("rightDecoration.main")}</p>
+                            <p className="font-patrika-clear text-xs sm:text-sm text-[#6E3439] max-w-[220px] leading-snug">{t("rightDecoration.sub")}</p>
+                        </div>
                     </div>
+                </div>
 
-                    <p className="font-devanagari text-primary-container text-lg md:text-xl font-medium mb-2 tracking-wide">{t("subtitle")}</p>
+                {/* Ceremony Subtitle & Couple Names */}
+                <main className="relative z-10 flex flex-col items-center text-center w-full max-w-3xl mx-auto">
+                    <p className="font-patrika-classic text-[#6E161F] text-lg sm:text-xl md:text-2xl font-semibold mb-2 tracking-wide">{t("subtitle")}</p>
 
-                    <h1 className="font-devanagari text-4xl md:text-7xl font-bold text-primary leading-tight mb-6 md:mb-8 drop-shadow-sm flex items-center justify-center gap-2 flex-wrap">
-                        {t("groomName")}
-                        <span className="text-secondary font-normal text-3xl md:text-6xl pb-2">ॐ</span>
-                        {t("brideName")}
+                    <h1 className="font-patrika-title text-4xl sm:text-5xl md:text-7xl font-bold text-[#5A1219] leading-tight mb-6 md:mb-8 drop-shadow-[0_2px_6px_rgba(90,18,25,0.1)] flex items-center justify-center gap-2.5 sm:gap-4 flex-wrap">
+                        <span>{t("groomName")}</span>
+                        <span aria-hidden="true" className="text-[#B8292F] font-normal text-3xl sm:text-5xl md:text-6xl pb-1">
+                            ॐ
+                        </span>
+                        <span>{t("brideName")}</span>
                     </h1>
 
-                    <div className="bg-primary-container text-surface font-devanagari text-sm md:text-lg px-5 py-3 rounded-lg flex items-center gap-3 shadow-chandan border border-[#5b0309] transition-all hover:shadow-lg w-full max-w-[90%] md:w-auto justify-center">
-                        <span className="text-secondary-container text-lg md:text-xl">📅</span>
-                        <span className="font-semibold">
+                    {/* Wedding Date & Time Pill */}
+                    <div className="patrika-pill-box text-[#4A0E14] font-patrika-clear text-sm sm:text-base md:text-lg px-5 sm:px-7 py-3 flex items-center gap-3 w-full max-w-[92%] sm:w-auto justify-center">
+                        <span aria-hidden="true" className="text-lg md:text-xl leading-none">
+                            📅
+                        </span>
+                        <span className="font-bold tracking-wide">
                             {t("weddingDate")} | {t("weddingTime")}
                         </span>
                     </div>
 
-                    <div className="mt-8 md:mt-10 text-center font-devanagari text-sm text-on-surface-variant leading-relaxed italic mb-4">
-                        <p>"{t("bottomShloka.line1")}</p>
-                        <p>{t("bottomShloka.line2")}"</p>
+                    {/* Sacred Closing Shloka */}
+                    <div className="mt-8 md:mt-10 text-center font-patrika-classic text-sm sm:text-base text-[#5C252A] leading-relaxed max-w-xl px-2 mb-2">
+                        <p className="font-semibold">“{t("bottomShloka.line1")}</p>
+                        <p className="font-semibold">{t("bottomShloka.line2")}”</p>
                     </div>
                 </main>
             </div>
