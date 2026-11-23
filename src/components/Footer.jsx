@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+    const { t } = useTranslation("footer");
+
     const linkedinUrl = "https://www.linkedin.com/in/rupesh-panchal-528716261?utm_source=share_via&utm_content=profile&utm_medium=member_android";
 
     return (
@@ -17,18 +20,18 @@ const Footer = () => {
 
                 {/* Developer Credit */}
                 <div className="inline-flex flex-wrap items-center justify-center gap-1.5 font-heading text-sm tracking-wide md:text-base">
-                    <span className="text-xs text-ink/60 md:text-sm">Developed by</span>
+                    <span className="text-xs text-ink/60 md:text-sm">{t("developedBy")}</span>
 
-                    <span className="font-semibold text-kumkum">Rupesh Panchal</span>
+                    <span className="font-semibold text-kumkum">{t("developerName")}</span>
 
                     <a
                         href={linkedinUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="Connect with Rupesh Panchal on LinkedIn"
+                        aria-label={`${t("connectOnLinkedIn")} ${t("developerName")}`}
                         className="text-xs font-semibold text-gold-deep underline decoration-gold/50 underline-offset-2 transition-colors duration-300 hover:text-kumkum md:text-sm"
                     >
-                        Connect on LinkedIn
+                        {t("connectOnLinkedIn")}
                     </a>
                 </div>
             </div>

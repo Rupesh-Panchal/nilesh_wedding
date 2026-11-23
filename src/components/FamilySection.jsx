@@ -87,7 +87,7 @@ const WeddingCard = ({ t }) => (
 
                 <div className="flex items-center justify-center gap-3 text-gold-light">
                     <IconClock className="h-7 w-7 shrink-0" />
-                    <p className="font-heading text-2xl leading-9">{t("wedding.time")}</p>
+                    <p className="font-devanagari text-2xl leading-9">{t("wedding.time")}</p>
                 </div>
             </div>
 

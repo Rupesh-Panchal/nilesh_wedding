@@ -16,12 +16,12 @@ const ContactSection = () => {
         {
             name: t("organizers.name1"),
             location: t("organizers.location1"),
-            phone: "+919876543210",
+            phone: t("organizers.phone1"),
         },
         {
             name: t("organizers.name2"),
             location: t("organizers.location2"),
-            phone: "+919876543211",
+            phone: t("organizers.phone2"),
         },
     ];
 
@@ -45,6 +45,7 @@ const ContactSection = () => {
             <div aria-hidden="true" className="pointer-events-none absolute -left-16 top-4 h-44 w-44 text-gold/25 wedding-rotate sm:h-60 sm:w-60 md:h-72 md:w-72">
                 <Mandala />
             </div>
+
             <div aria-hidden="true" className="pointer-events-none absolute -right-16 bottom-4 h-44 w-44 text-gold/25 wedding-rotate-reverse sm:h-60 sm:w-60 md:h-72 md:w-72">
                 <Mandala />
             </div>
@@ -69,16 +70,17 @@ const ContactSection = () => {
                                 >
                                     <div className="min-w-0">
                                         <h4 className="text-xl leading-8 text-kumkum md:text-2xl">{person.name}</h4>
+
                                         <p className="text-base text-gold-deep">{person.location}</p>
 
                                         {/* Contact number */}
-                                        <p className="mt-1 font-heading text-lg tracking-wider text-kumkum/90">{isContactAvailable ? formatPhoneNumber(person.phone) : "XX XXXXXXXXXX"}</p>
+                                        <p className="mt-1 font-devanagari text-lg tracking-wider text-kumkum/90">{isContactAvailable ? formatPhoneNumber(person.phone) : "XX XXXXXXXXXX"}</p>
                                     </div>
 
                                     {/* Call button */}
                                     {isContactAvailable && (
                                         <a
-                                            href={`tel:${person.phone}`}
+                                            href={`tel:${person.phone.replace(/[^\d+]/g, "")}`}
                                             className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-gold-light bg-kumkum text-gold-light shadow-gilt transition-transform duration-300 hover:scale-110 focus-visible:scale-110"
                                             aria-label={`Call ${person.name}`}
                                         >
@@ -98,15 +100,17 @@ const ContactSection = () => {
                     </div>
                 </OrnateFrame>
 
-                {/* Closing blessing: the story ends where it began, with the couple's seal */}
+                {/* Closing blessing */}
                 <div className="mt-16 flex flex-col items-center text-center md:mt-24">
                     <Lotus className="h-12 w-12" opacity={0.9} />
+
                     <Monogram className="mt-3 h-28 w-28 md:h-32 md:w-32" />
+
                     <p className="mt-5 flex items-center gap-3 font-heading text-[1.7rem] leading-[1.6] text-gilt md:text-4xl">
-                        <IconSparkle className="h-6 w-6 text-gold" strokeWidth={1.4} />
-                        ॥ {t("footer", "शुभं भवतु")} ॥
+                        <IconSparkle className="h-6 w-6 text-gold" strokeWidth={1.4} />॥ {t("footer", "शुभं भवतु")} ॥
                         <IconSparkle className="h-6 w-6 text-gold" strokeWidth={1.4} />
                     </p>
+
                     <Divider className="mt-5" />
                 </div>
             </div>

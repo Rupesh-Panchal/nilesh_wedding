@@ -5,14 +5,21 @@ import { Mandala, ScallopEdge, Divider } from "./ornaments/decor";
 import { IconCalendar, IconClock, IconDiya, IconSparkle } from "./ornaments/icons";
 
 /* Countdown tile: an arch-shaped niche, like a lamp alcove in a temple wall */
-const CountdownBox = ({ value, label }) => (
+const CountdownBox = ({ value, label, locale }) => (
     <div className="flex w-[4.3rem] shrink-0 flex-col items-center sm:w-[5.4rem] md:w-28">
         <div className="relative w-full rounded-t-[999px] rounded-b-xl bg-gilt p-[2px] shadow-glow">
             <div className="flex aspect-[4/5] w-full flex-col items-center justify-center rounded-t-[999px] rounded-b-[0.65rem] bg-night">
-                <span className="font-heading text-[1.65rem] leading-none tabular-nums text-gilt sm:text-4xl md:text-5xl">{String(value).padStart(2, "0")}</span>
+                <span className="font-devanagari text-[1.65rem] leading-none tabular-nums text-gilt sm:text-4xl md:text-5xl">
+                    {new Intl.NumberFormat(locale, {
+                        minimumIntegerDigits: 2,
+                        useGrouping: false,
+                    }).format(value)}
+                </span>
+
                 <span className="mt-1.5 h-px w-5 bg-gold-light/50 md:w-7" aria-hidden="true" />
             </div>
         </div>
+
         <span className="mt-2.5 text-sm text-gold-light md:text-base">{label}</span>
     </div>
 );
@@ -21,13 +28,17 @@ const DetailPanel = ({ icon: Icon, label, value, sub }) => (
     <div className="flex w-full flex-col items-center rounded-2xl border border-gold-light/35 bg-oxblood/60 px-5 py-5 backdrop-blur-sm transition-colors duration-300 hover:border-gold-light/80 sm:w-72">
         <Icon className="h-9 w-9 text-gold-light" strokeWidth={1.4} />
         <span className="mt-2 text-sm text-gold-light/80 md:text-base">{label}</span>
-        <span className="mt-1 font-heading text-2xl leading-9 text-ivory sm:text-[1.7rem]">{value}</span>
+        <span className="mt-1 font-devanagari text-2xl leading-9 text-ivory sm:text-[1.7rem]">{value}</span>
         <span className="mt-1 text-sm text-ivory/65 md:text-base">{sub}</span>
     </div>
 );
 
 const MuhurtSection = () => {
-    const { t } = useTranslation("muhurt");
+    const { t, i18n } = useTranslation("muhurt");
+
+    const language = i18n.resolvedLanguage || i18n.language;
+
+    const locale = language.startsWith("hi") ? "hi-IN-u-nu-deva" : language.startsWith("mr") ? "mr-IN-u-nu-deva" : "en-IN-u-nu-latn";
 
     const targetDate = new Date(2026, 11, 5, 12, 17, 0).getTime();
 
@@ -65,13 +76,23 @@ const MuhurtSection = () => {
 
             <section id="muhurt-section" className="relative w-full overflow-hidden bg-oxblood bg-jali py-20 text-ivory md:py-28">
                 {/* Warm lamp-light behind the countdown */}
-                <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[58%] h-[46rem] w-[46rem] max-w-[160vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(232,148,26,0.28)_0%,rgba(58,4,9,0)_65%)]" />
-                <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[56%] aspect-square w-[min(150vw,56rem)] -translate-x-1/2 -translate-y-1/2 text-gold-light/[0.14] wedding-rotate-reverse">
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 top-[58%] h-[46rem] w-[46rem] max-w-[160vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(232,148,26,0.28)_0%,rgba(58,4,9,0)_65%)]"
+                />
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 top-[56%] aspect-square w-[min(150vw,56rem)] -translate-x-1/2 -translate-y-1/2 text-gold-light/[0.14] wedding-rotate-reverse"
+                >
                     <Mandala />
                 </div>
 
                 <IconDiya aria-hidden="true" className="pointer-events-none absolute left-[7%] top-24 hidden h-14 w-14 animate-lotus-float text-gold-light/60 lg:block" strokeWidth={1.1} />
-                <IconDiya aria-hidden="true" className="pointer-events-none absolute right-[7%] top-24 hidden h-14 w-14 animate-lotus-float text-gold-light/60 [animation-delay:1.5s] lg:block" strokeWidth={1.1} />
+                <IconDiya
+                    aria-hidden="true"
+                    className="pointer-events-none absolute right-[7%] top-24 hidden h-14 w-14 animate-lotus-float text-gold-light/60 [animation-delay:1.5s] lg:block"
+                    strokeWidth={1.1}
+                />
 
                 <div className="relative z-10 mx-auto w-full max-w-4xl px-4 md:px-6">
                     <SectionHeading icon={IconDiya} tone="light" title={t("title")} subtitle={t("description")} />
@@ -92,10 +113,10 @@ const MuhurtSection = () => {
 
                         {!timeLeft.completed ? (
                             <div className="mt-7 flex w-full flex-nowrap items-start justify-center gap-2 sm:gap-4 md:gap-6" role="timer" aria-live="off">
-                                <CountdownBox value={timeLeft.days} label={t("days")} />
-                                <CountdownBox value={timeLeft.hours} label={t("hours")} />
-                                <CountdownBox value={timeLeft.minutes} label={t("minutes")} />
-                                <CountdownBox value={timeLeft.seconds} label={t("seconds")} />
+                                <CountdownBox value={timeLeft.days} label={t("days")} locale={locale} />
+                                <CountdownBox value={timeLeft.hours} label={t("hours")} locale={locale} />
+                                <CountdownBox value={timeLeft.minutes} label={t("minutes")} locale={locale} />
+                                <CountdownBox value={timeLeft.seconds} label={t("seconds")} locale={locale} />
                             </div>
                         ) : (
                             <p className="py-8 text-center font-heading text-2xl leading-[1.6] text-gilt md:text-3xl">{t("completedMessage", "नवदाम्पत्यास मंगलमय शुभेच्छा!")}</p>
