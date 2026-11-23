@@ -6,12 +6,25 @@ import { Divider, Lotus, Mandala, Monogram } from "./ornaments/decor";
 import { IconPhone, IconInvitation, IconSparkle, IconHeart } from "./ornaments/icons";
 
 const ContactSection = () => {
-    const { t } = useTranslation("contact");
+    const { t, i18n } = useTranslation("contact");
 
-    // Contact numbers available until 5 December 2026
+    const language = i18n.language.split("-")[0];
+
+    const fontClass = language === "hi" || language === "mr" ? "font-devanagari" : "font-heading";
+
+    const formatDigits = (text) => {
+        if (language !== "hi" && language !== "mr") return text;
+
+        const formatter = new Intl.NumberFormat(language === "hi" ? "hi-IN-u-nu-deva" : "mr-IN-u-nu-deva");
+
+        return String(text).replace(/[0-9]/g, (digit) => formatter.format(Number(digit)));
+    };
+
+    // Contact numbers available until 5 December 2026 (Expires at midnight Dec 6)
     const contactExpiryDate = new Date(2026, 11, 6, 0, 0, 0);
     const isContactAvailable = new Date() < contactExpiryDate;
 
+    // UPDATED: Added all 4 organizers mapping to your JSON
     const organizers = [
         {
             name: t("organizers.name1"),
@@ -23,25 +36,37 @@ const ContactSection = () => {
             location: t("organizers.location2"),
             phone: t("organizers.phone2"),
         },
+        {
+            name: t("organizers.name3"),
+            location: t("organizers.location3"),
+            phone: t("organizers.phone3"),
+        },
+        {
+            name: t("organizers.name4"),
+            location: t("organizers.location4"),
+            phone: t("organizers.phone4"),
+        },
     ];
 
     const formatPhoneNumber = (phone) => {
+        // If the contact is expired, return the masked format
+        if (!isContactAvailable) return "+xx XXXXXXXXXX";
+
+        // Otherwise, format it normally
         return phone.replace(/^(\+91)(\d{10})$/, "+91 $2");
     };
 
     const handleDownload = () => {
         const link = document.createElement("a");
-
         link.href = invitationImage;
         link.download = "Invitation_Card.jpeg";
-
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     };
 
     return (
-        <section id="contact-section" className="relative w-full overflow-hidden pb-20 pt-12 md:pb-28 md:pt-16">
+        <section id="contact-section" className={`relative w-full overflow-hidden pb-20 pt-12 md:pb-28 md:pt-16 ${fontClass}`}>
             <div aria-hidden="true" className="pointer-events-none absolute -left-16 top-4 h-44 w-44 text-gold/25 wedding-rotate sm:h-60 sm:w-60 md:h-72 md:w-72">
                 <Mandala />
             </div>
@@ -70,14 +95,14 @@ const ContactSection = () => {
                                 >
                                     <div className="min-w-0">
                                         <h4 className="text-xl leading-8 text-kumkum md:text-2xl">{person.name}</h4>
-
                                         <p className="text-base text-gold-deep">{person.location}</p>
-
-                                        {/* Contact number */}
-                                        <p className="mt-1 font-devanagari text-lg tracking-wider text-kumkum/90">{isContactAvailable ? formatPhoneNumber(person.phone) : "XX XXXXXXXXXX"}</p>
+                                        {/* Contact number - displays masked number if expired */}
+                                        <p className="mt-1 font-devanagari text-lg tracking-wider text-kumkum/90">
+                                            {isContactAvailable ? formatDigits(formatPhoneNumber(person.phone)) : "+xx XXXXXXXXXX"}
+                                        </p>
                                     </div>
 
-                                    {/* Call button */}
+                                    {/* Call button - completely hidden/disabled after expiry */}
                                     {isContactAvailable && (
                                         <a
                                             href={`tel:${person.phone.replace(/[^\d+]/g, "")}`}
