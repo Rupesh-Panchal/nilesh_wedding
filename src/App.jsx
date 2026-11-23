@@ -1,4 +1,3 @@
-import React from "react";
 import IntroAnimation from "./components/IntroAnimation";
 import BackgroundMusic from "./components/BackgroundMusic";
 import AutoScroll from "./components/AutoScroll";
@@ -11,6 +10,7 @@ import LittleOnesSection from "./components/LittleOnesSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import BackgroundAnimation from "./components/BackgroundAnimation";
+import JourneyThread from "./components/ui/JourneyThread";
 
 function App() {
     return (
@@ -27,7 +27,10 @@ function App() {
             {/* Global Background Animation */}
             <BackgroundAnimation />
 
-            {/* Main Website Content */}
+            {/* The golden thread: scroll progress + chapter trail */}
+            <JourneyThread />
+
+            {/* Main Website Content: one story told in six chapters */}
             <div className="relative z-10">
                 {/* <Navbar /> */}
                 <HeroSection />
@@ -36,7 +39,7 @@ function App() {
                 <VenueSection />
                 <LittleOnesSection />
                 <ContactSection />
-                {/* <Footer /> */}
+                <Footer />
             </div>
         </div>
     );

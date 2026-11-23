@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronUp, Check, Languages } from "lucide-react";
+import { IconChevron, IconCheck, IconMusic, IconPause } from "./ornaments/icons";
 import ramayanaAudio from "../assets/ramayana.mp3";
 
 // Create ONE audio instance
@@ -90,9 +90,9 @@ const BackgroundMusic = () => {
     return (
         <>
             {/* LEFT: Language dropdown */}
-            <div ref={langRef} className="fixed bottom-5 left-5 z-[99999]">
+            <div ref={langRef} className="fixed bottom-[calc(2.25rem+env(safe-area-inset-bottom))] left-5 z-[99999] md:bottom-[calc(1.25rem+env(safe-area-inset-bottom))]">
                 {isLangOpen && (
-                    <div className="absolute bottom-full left-0 mb-2 w-32 overflow-hidden rounded-xl border border-[#d4a44c]/70 bg-[#fff4d6] py-1 shadow-[0_4px_20px_rgba(100,30,20,0.2)]">
+                    <div className="absolute bottom-full left-0 mb-2 w-36 overflow-hidden rounded-2xl border border-gold/70 bg-ivory/95 py-1 shadow-gilt backdrop-blur-md">
                         {languages.map((language) => {
                             const isActive = currentLanguage === language.code;
 
@@ -101,12 +101,12 @@ const BackgroundMusic = () => {
                                     key={language.code}
                                     type="button"
                                     onClick={() => selectLanguage(language.code)}
-                                    className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-sm font-devanagari transition-colors ${
-                                        isActive ? "bg-[#780d16] font-bold text-[#fff4d6]" : "text-[#780d16] hover:bg-[#f8e7bd]"
+                                    className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-base transition-colors ${
+                                        isActive ? "bg-kumkum text-gold-light" : "text-kumkum hover:bg-parchment"
                                     }`}
                                 >
                                     {language.label}
-                                    {isActive && <Check size={14} />}
+                                    {isActive && <IconCheck className="h-4 w-4" />}
                                 </button>
                             );
                         })}
@@ -119,11 +119,13 @@ const BackgroundMusic = () => {
                     aria-haspopup="listbox"
                     aria-expanded={isLangOpen}
                     aria-label="Change language"
-                    className="flex h-12 items-center gap-1.5 rounded-full border border-[#d4a44c]/70 bg-[#fff4d6] px-3.5 text-sm font-bold font-devanagari text-[#780d16] shadow-[0_4px_20px_rgba(100,30,20,0.2)] backdrop-blur-md transition-all duration-300 hover:bg-[#f8e7bd] active:scale-95"
+                    className="flex h-12 items-center gap-2 rounded-full border border-gold/70 bg-ivory/95 px-4 text-base text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:bg-parchment active:scale-95"
                 >
-                    <Languages size={16} />
+                    <span aria-hidden="true" className="font-heading text-lg leading-none text-gold-deep">
+                        अ
+                    </span>
                     <span>{currentLangLabel}</span>
-                    <ChevronUp size={14} className={`transition-transform duration-200 ${isLangOpen ? "" : "rotate-180"}`} />
+                    <IconChevron className={`h-4 w-4 transition-transform duration-200 ${isLangOpen ? "" : "rotate-180"}`} />
                 </button>
             </div>
 
@@ -133,22 +135,11 @@ const BackgroundMusic = () => {
                 onClick={toggleMusic}
                 aria-label={isPlaying ? "Pause music" : "Play music"}
                 title={isPlaying ? "Pause music" : "Play music"}
-                className="fixed bottom-5 right-5 z-[99999] flex h-14 w-14 items-center justify-center rounded-full border border-[#d4a44c]/70 bg-[#fff4d6] text-[#780d16] shadow-[0_4px_20px_rgba(100,30,20,0.2)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-[#f8e7bd] active:scale-95"
+                className="fixed bottom-[calc(2.25rem+env(safe-area-inset-bottom))] right-5 z-[99999] flex h-14 w-14 items-center justify-center rounded-full border border-gold/70 bg-ivory/95 text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-parchment active:scale-95 md:bottom-[calc(1.25rem+env(safe-area-inset-bottom))]"
             >
-                {isPlaying ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="6" y="4" width="4" height="16" rx="1" />
-                        <rect x="14" y="4" width="4" height="16" rx="1" />
-                    </svg>
-                ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9 18V5l12-2v13" />
-                        <circle cx="6" cy="18" r="3" />
-                        <circle cx="18" cy="16" r="3" />
-                    </svg>
-                )}
+                {isPlaying ? <IconPause className="h-6 w-6" strokeWidth={1.8} /> : <IconMusic className="h-6 w-6" strokeWidth={1.6} />}
 
-                {isPlaying && <span className="pointer-events-none absolute inset-0 rounded-full border border-[#d4a44c] animate-ping opacity-20" />}
+                {isPlaying && <span className="pointer-events-none absolute inset-0 rounded-full border border-gold animate-ping opacity-30" />}
             </button>
         </>
     );

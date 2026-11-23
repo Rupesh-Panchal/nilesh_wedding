@@ -89,4 +89,11 @@ i18n.use(initReactI18next).init({
     },
 });
 
+// Keep the page's lang attribute in sync with the chosen language
+const syncHtmlLang = (lng) => {
+    if (typeof document !== "undefined") document.documentElement.lang = (lng || "mr").split("-")[0];
+};
+syncHtmlLang(i18n.language);
+i18n.on("languageChanged", syncHtmlLang);
+
 export default i18n;

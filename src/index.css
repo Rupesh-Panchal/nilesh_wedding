@@ -1,14 +1,31 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap");
+/* ==========================================================================
+   FONTS (self-hosted through @fontsource, so the invitation never depends on
+   an external font server and Marathi / Hindi glyphs always render properly)
+   - Rozha One ........ display face for names and titles (Latin + Devanagari)
+   - Tiro Devanagari .. calligraphic body face for Marathi / Hindi
+   - Cormorant ........ refined body face for English
+   - Great Vibes ...... script used only for the N & J monogram
+   ========================================================================== */
+@import "@fontsource/rozha-one/latin-400.css";
+@import "@fontsource/rozha-one/latin-ext-400.css";
+@import "@fontsource/rozha-one/devanagari-400.css";
+@import "@fontsource/tiro-devanagari-marathi/latin-400.css";
+@import "@fontsource/tiro-devanagari-marathi/devanagari-400.css";
+@import "@fontsource/tiro-devanagari-marathi/devanagari-400-italic.css";
+@import "@fontsource/cormorant-garamond/latin-500.css";
+@import "@fontsource/cormorant-garamond/latin-500-italic.css";
+@import "@fontsource/cormorant-garamond/latin-600.css";
+@import "@fontsource/great-vibes/latin-400.css";
 
 @import "tailwindcss";
 
 @theme {
-    /* Colors */
-    --color-surface: #fcf9f8;
+    /* ---- Legacy tokens (kept so every existing class keeps working) ---- */
+    --color-surface: #fbf4e6;
     --color-surface-dim: #dcd9d9;
     --color-surface-container: #f0eded;
     --color-surface-high: #eae7e7;
-    --color-on-surface: #1b1c1c;
+    --color-on-surface: #2a1517;
     --color-on-surface-variant: #574240;
 
     --color-primary: #5b0309;
@@ -26,85 +43,225 @@
     --color-outline: #8a716f;
     --color-outline-variant: #ddc0bd;
 
-    /* Fonts */
-    --font-display: "Playfair Display", serif;
-    --font-body: "Noto Serif", serif;
-    --font-devanagari: "Noto Serif Devanagari", serif;
+    /* ---- Wedding palette ---- */
+    --color-ivory: #fbf4e6; /* silk page colour */
+    --color-cream: #fff0d5; /* matches the intro artwork */
+    --color-parchment: #f1e2c3; /* aged paper, inner panels */
+    --color-kumkum: #5b0309; /* signature maroon */
+    --color-maroon: #7b1c1c;
+    --color-oxblood: #3a0409; /* night sections */
+    --color-night: #260307;
+    --color-gold: #c5a028;
+    --color-gold-light: #ecd48a;
+    --color-gold-deep: #8d6b0f;
+    --color-rose: #b83a55; /* romantic accent, used sparingly */
+    --color-blush: #f5d9d0;
+    --color-marigold: #e8941a;
+    --color-leaf: #56733f;
+    --color-ink: #2a1517;
 
-    /* Shadows */
+    /* ---- Typography ---- */
+    --font-heading: "Rozha One", "Tiro Devanagari Marathi", "Noto Serif Devanagari", serif;
+    --font-display: "Rozha One", "Tiro Devanagari Marathi", serif;
+    --font-body: "Cormorant Garamond", "Tiro Devanagari Marathi", "Noto Serif Devanagari", Georgia, serif;
+    --font-devanagari: "Tiro Devanagari Marathi", "Cormorant Garamond", "Noto Serif Devanagari", serif;
+    --font-script: "Great Vibes", "Snell Roundhand", cursive;
+
+    /* ---- Shadows ---- */
     --shadow-chandan: 0 8px 30px -4px rgba(123, 28, 28, 0.08), 0 2px 8px -2px rgba(197, 160, 40, 0.12);
+    --shadow-gilt: 0 22px 50px -22px rgba(91, 3, 9, 0.45), 0 4px 14px -6px rgba(141, 107, 15, 0.35);
+    --shadow-glow: 0 0 40px -6px rgba(232, 148, 26, 0.45);
 }
 
-/* ========================================
-   BASE STYLES
-======================================== */
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
 
 body {
-    background-color: var(--color-surface);
-    color: var(--color-on-surface);
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
     font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.0625rem;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Tiro Devanagari only ships a regular weight, so never fake a bold. */
+    font-synthesis-weight: none;
     margin: 0;
+    overflow-x: hidden;
 }
 
-/* ========================================
-   CUSTOM BACKGROUND ANIMATIONS
-======================================== */
+::selection {
+    background: var(--color-gold-light);
+    color: var(--color-kumkum);
+}
 
-/* 1. Golden Glow Animation */
+:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* ==========================================================================
+   SURFACES & TEXTURES
+   ========================================================================== */
+
+/* Soft woven-silk paper grain */
+.bg-silk {
+    background-color: var(--color-ivory);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .4 0 0 0 0 .18 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Carved-stone jali lattice, used on the deep maroon chapter */
+.bg-jali {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23ecd48a' stroke-opacity='.13' stroke-width='1'%3E%3Cpath d='M32 0 64 32 32 64 0 32Z'/%3E%3Ccircle cx='32' cy='32' r='10'/%3E%3Cpath d='M32 22v20M22 32h20'/%3E%3C/g%3E%3Cg fill='%23ecd48a' fill-opacity='.18'%3E%3Ccircle cx='0' cy='0' r='2'/%3E%3Ccircle cx='64' cy='0' r='2'/%3E%3Ccircle cx='0' cy='64' r='2'/%3E%3Ccircle cx='64' cy='64' r='2'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 64px 64px;
+}
+
+/* Metallic gold lettering. Generous line-height keeps Devanagari matras from clipping. */
+.text-gilt {
+    background-image: linear-gradient(176deg, #f6e3a0 0%, #d8b440 38%, #a67c14 62%, #e2c466 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.bg-gilt {
+    background-image: linear-gradient(135deg, #f1dc9a 0%, #c5a028 45%, #8d6b0f 100%);
+}
+
+.gilt-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 30%, var(--color-gold-light) 50%, var(--color-gold) 70%, transparent);
+}
+
+/* ==========================================================================
+   BUTTONS (shared by every call to action)
+   ========================================================================== */
+
+.btn-gold,
+.btn-kumkum {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.95rem 1.75rem;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s ease;
+}
+
+.btn-kumkum {
+    color: var(--color-gold-light);
+    background: linear-gradient(135deg, #7b1c1c, #5b0309 60%, #3a0409);
+    border: 1px solid var(--color-gold);
+    box-shadow:
+        0 10px 24px -10px rgba(91, 3, 9, 0.7),
+        inset 0 0 0 3px rgba(91, 3, 9, 1),
+        inset 0 0 0 4px rgba(236, 212, 138, 0.45);
+}
+
+.btn-gold {
+    color: var(--color-kumkum);
+    background: linear-gradient(135deg, #f4e2a2, #d4af37 50%, #b08a1c);
+    border: 1px solid #f6e7b0;
+    box-shadow:
+        0 12px 26px -12px rgba(141, 107, 15, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* A slow sheen sweeps across the button on hover / focus */
+.btn-gold::after,
+.btn-kumkum::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform 0.9s ease;
+}
+
+.btn-gold:hover,
+.btn-kumkum:hover,
+.btn-gold:focus-visible,
+.btn-kumkum:focus-visible {
+    transform: translateY(-3px);
+}
+
+.btn-gold:hover::after,
+.btn-kumkum:hover::after,
+.btn-gold:focus-visible::after,
+.btn-kumkum:focus-visible::after {
+    transform: translateX(120%);
+}
+
+.btn-gold:active,
+.btn-kumkum:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ==========================================================================
+   MOTION
+   ========================================================================== */
+
 @keyframes pulse-slow {
     0%,
     100% {
         opacity: 0.8;
         transform: translate(-50%, -50%) scale(1);
     }
-
     50% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1.05);
     }
 }
-
 .animate-pulse-slow {
     animation: pulse-slow 8s ease-in-out infinite;
 }
 
-/* ========================================
-   2. FALLING PETALS ANIMATION
-======================================== */
-
+/* Falling petals (global background) */
 @keyframes petal-fall {
     0% {
         transform: translate3d(0, -10vh, 0) rotate(0deg);
         opacity: 0;
     }
-
     10% {
         opacity: 1;
     }
-
     25% {
         transform: translate3d(var(--sway), 25vh, 0) rotate(90deg);
     }
-
     50% {
         transform: translate3d(calc(var(--sway) * -0.7), 55vh, 0) rotate(180deg);
     }
-
     75% {
         transform: translate3d(var(--sway), 80vh, 0) rotate(270deg);
     }
-
     90% {
         opacity: 1;
     }
-
     100% {
         transform: translate3d(0, 115vh, 0) rotate(360deg);
         opacity: 0;
     }
 }
-
 .animate-petal-fall {
     animation-name: petal-fall;
     animation-timing-function: linear;
@@ -112,51 +269,33 @@ body {
     will-change: transform, opacity;
 }
 
-/* ========================================
-   3. ANIMATED HANGING DIYA SWING
-======================================== */
-
+/* Hanging brass lamps */
 @keyframes swing {
-    0% {
-        transform: rotate(5deg);
-    }
-
-    50% {
-        transform: rotate(-5deg);
-    }
-
+    0%,
     100% {
         transform: rotate(5deg);
     }
+    50% {
+        transform: rotate(-5deg);
+    }
 }
-
 .animate-swing {
     animation: swing 4s ease-in-out infinite;
 }
-
-/* ========================================
-   4. GOLDEN LOTUS FLOAT ANIMATION
-======================================== */
 
 @keyframes float {
     0%,
     100% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(-8px);
     }
 }
-
 .animate-lotus-float {
     animation: float 5s ease-in-out infinite;
     will-change: transform;
 }
-
-/* ========================================
-   5. GOLDEN SPARKLE ANIMATION
-======================================== */
 
 @keyframes sparkle {
     0%,
@@ -164,33 +303,15 @@ body {
         opacity: 0.3;
         transform: scale(0.8) rotate(0deg);
     }
-
     50% {
         opacity: 0.9;
         transform: scale(1.2) rotate(45deg);
     }
 }
-
 .animate-sparkle {
     animation: sparkle 2.5s ease-in-out infinite;
 }
 
-/* ========================================
-   6. ACCESSIBILITY: REDUCED MOTION
-======================================== */
-
-@media (prefers-reduced-motion: reduce) {
-    .animate-petal-fall,
-    .animate-pulse-slow,
-    .animate-swing,
-    .animate-lotus-float,
-    .animate-sparkle {
-        animation: none !important;
-        transition: none !important;
-    }
-}
-
-/* Wedding mandala rotation */
 @keyframes weddingRotate {
     from {
         transform: rotate(0deg);
@@ -199,92 +320,102 @@ body {
         transform: rotate(360deg);
     }
 }
-
 .wedding-rotate {
-    animation: weddingRotate 45s linear infinite;
+    animation: weddingRotate 60s linear infinite;
+}
+.wedding-rotate-reverse {
+    animation: weddingRotate 90s linear infinite reverse;
 }
 
-/* Gentle central heartbeat */
 @keyframes weddingHeartbeat {
     0%,
     100% {
         transform: scale(1);
     }
     50% {
-        transform: scale(1.06);
+        transform: scale(1.05);
     }
 }
-
 .wedding-heartbeat {
     animation: weddingHeartbeat 4s ease-in-out infinite;
 }
 
-/* Floating decorative petals */
-.wedding-petal {
-    position: absolute;
-    color: #c5a028;
-    opacity: 0.4;
-    pointer-events: none;
-    animation: weddingFloat 6s ease-in-out infinite;
+/* The one orchestrated moment: the mandap arch opens like curtains when the
+   visitor enters, then the names settle in. */
+@keyframes archOpen {
+    from {
+        clip-path: inset(0 50% 0 50%);
+        opacity: 0;
+    }
+    to {
+        clip-path: inset(-100% -100% -100% -100%);
+        opacity: 1;
+    }
 }
-
-.petal-one {
-    top: 12%;
-    left: 15%;
-    font-size: 22px;
+@keyframes settleIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+        letter-spacing: 0.08em;
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        letter-spacing: 0;
+    }
 }
-
-.petal-two {
-    top: 20%;
-    right: 15%;
-    font-size: 18px;
-    animation-delay: 1s;
-}
-
-.petal-three {
-    bottom: 32%;
-    left: 12%;
-    font-size: 25px;
-    animation-delay: 2s;
-}
-
-.petal-four {
-    bottom: 28%;
-    right: 12%;
-    font-size: 20px;
-    animation-delay: 3s;
-}
-
-.petal-five {
-    top: 50%;
-    left: 5%;
-    font-size: 15px;
-    animation-delay: 1.5s;
-}
-
-.petal-six {
-    top: 48%;
-    right: 5%;
-    font-size: 16px;
-    animation-delay: 2.5s;
-}
-
-@keyframes weddingFloat {
+@keyframes haloBreathe {
     0%,
     100% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.25;
+        opacity: 0.55;
+        transform: scale(1);
     }
     50% {
-        transform: translateY(-18px) rotate(25deg);
-        opacity: 0.7;
+        opacity: 0.9;
+        transform: scale(1.08);
     }
+}
+.hero-pending .hero-arch,
+.hero-pending .hero-names,
+.hero-pending .hero-after {
+    opacity: 0;
+}
+.hero-revealed .hero-arch {
+    animation: archOpen 1.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-revealed .hero-names {
+    animation: settleIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+.hero-revealed .hero-after {
+    animation: settleIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) 1.4s both;
+}
+.animate-halo {
+    animation: haloBreathe 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .animate-petal-fall,
+    .animate-pulse-slow,
+    .animate-swing,
+    .animate-lotus-float,
+    .animate-sparkle,
     .wedding-rotate,
+    .wedding-rotate-reverse,
     .wedding-heartbeat,
-    .wedding-petal {
+    .animate-halo,
+    .hero-revealed .hero-arch,
+    .hero-revealed .hero-names,
+    .hero-revealed .hero-after {
         animation: none !important;
+        transition: none !important;
+    }
+    .hero-pending .hero-arch,
+    .hero-pending .hero-names,
+    .hero-pending .hero-after {
+        opacity: 1;
+    }
+    .btn-gold::after,
+    .btn-kumkum::after {
+        display: none;
     }
 }

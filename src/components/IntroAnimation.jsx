@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import introImage from "../assets/intro-devotional.png";
+import { IconSparkle } from "./ornaments/icons";
 
 // How long the intro takes to fade away (ms). Increase for a slower fade.
 const FADE_DURATION = 2500;
@@ -78,24 +79,28 @@ const IntroAnimation = () => {
                 {/* Mobile Entry Button */}
                 <button
                     onClick={handleEnter}
-                    className="mt-4 rounded-full border border-[#d4a44c] bg-[#fff4d6]/90 px-8 py-3 text-sm font-semibold tracking-[0.2em] text-[#780d16] shadow-[0_4px_20px_rgba(100,30,20,0.2)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#f8e7bd] active:scale-95"
+                    className="btn-kumkum mt-4 px-9 py-3 text-base tracking-[0.2em]"
                 >
-                    ✨ ENTER ✨
+                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                    ENTER
+                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
                 </button>
 
-                <p className="mt-3 text-center text-xs tracking-wider text-[#780d16]">Tap to enter the wedding invitation</p>
+                <p className="mt-3 text-center text-sm tracking-wider text-kumkum">Tap to enter the wedding invitation</p>
             </div>
 
             {/* Desktop foreground entry */}
             <div className="relative z-10 hidden h-full w-full flex-col items-center justify-end pb-16 md:flex">
                 <button
                     onClick={handleEnter}
-                    className="rounded-full border border-[#d4a44c] bg-[#fff4d6]/90 px-10 py-4 text-base font-semibold tracking-[0.2em] text-[#780d16] shadow-[0_4px_20px_rgba(100,30,20,0.2)] backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#f8e7bd] active:scale-95"
+                    className="btn-kumkum px-12 py-4 text-lg tracking-[0.25em]"
                 >
-                    ✨ ENTER ✨
+                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
+                    ENTER
+                    <IconSparkle className="h-5 w-5" strokeWidth={1.4} />
                 </button>
 
-                <p className="mt-4 text-sm tracking-wider text-[#780d16]">Click to enter the wedding invitation</p>
+                <p className="mt-4 text-base tracking-wider text-kumkum">Click to enter the wedding invitation</p>
             </div>
 
             {/* Desktop subtle glow */}

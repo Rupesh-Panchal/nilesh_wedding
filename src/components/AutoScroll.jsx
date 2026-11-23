@@ -15,7 +15,7 @@ const TOP_PAUSE = 1500;
 const REWIND_DURATION = 1500;
 
 // After any touch / wheel / key input, auto-scroll waits this long, then continues (ms)
-const IDLE_RESUME = 3000;
+const IDLE_RESUME = 1000;
 
 // Language order for each pass. After the last one it loops back to the first.
 const LANGUAGE_ORDER = ["mr", "hi", "en"];

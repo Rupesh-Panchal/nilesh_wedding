@@ -1,212 +1,121 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
+import OrnateFrame from "./ui/OrnateFrame";
+import SectionHeading from "./ui/SectionHeading";
+import { Divider, Lotus, Monogram } from "./ornaments/decor";
+import { IconCrown, IconLotus, IconKalash, IconPin, IconCalendar, IconClock, IconSparkle } from "./ornaments/icons";
 
-/* Male Icon */
-const MaleIcon = () => (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" aria-hidden="true">
-        <path d="M19 25C17 12 23 5 32 5C42 5 47 13 45 25" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M20 24C20 15 25 11 32 11C39 11 44 15 44 24V29C44 38 39 44 32 44C25 44 20 38 20 29V24Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-        <path d="M26 43V49M38 43V49" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M26 47C20 48 14 52 12 59H52C50 52 44 48 38 47" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M26 47L32 54L38 47" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+/* The arched niche that holds each family's emblem, echoing the hero arch */
+const EmblemNiche = ({ children, dark = false }) => (
+    <div className="relative mx-auto h-[7.5rem] w-24">
+        <div className={`absolute inset-0 rounded-t-[999px] rounded-b-2xl border-2 ${dark ? "border-gold-light/80" : "border-gold"} p-1`}>
+            <div className={`grid h-full w-full place-items-center rounded-t-[999px] rounded-b-xl ${dark ? "bg-oxblood text-gold-light" : "bg-gradient-to-b from-cream to-blush/60 text-kumkum"}`}>{children}</div>
+        </div>
+        <IconSparkle className={`absolute -right-3 bottom-1 h-6 w-6 ${dark ? "text-gold-light" : "text-gold"}`} strokeWidth={1.3} />
+    </div>
 );
 
-/* Female Icon */
-const FemaleIcon = () => (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10" aria-hidden="true">
-        <path d="M17 29V24C17 11 23 5 32 5C41 5 47 11 47 24V29" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M21 23C21 15 25 11 32 11C39 11 43 15 43 23V29C43 38 38 44 32 44C26 44 21 38 21 29V23Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-        <path d="M17 25C14 34 16 43 20 49M47 25C50 34 48 43 44 49" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M26 43V49M38 43V49" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M26 47C20 48 14 52 12 59H52C50 52 44 48 38 47" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M26 47C27 51 29 53 32 54C35 53 37 51 38 47" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-);
-
-/* Heart Icon */
-const HeartIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-8 h-8">
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-        />
-    </svg>
-);
-
-/* Location Icon */
-const LocationIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-5 h-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
-        <circle cx="12" cy="9" r="2.5" />
-    </svg>
-);
-
-/* Calendar Icon */
-const CalendarIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
-        <rect x="3" y="5" width="18" height="16" rx="2" />
-        <path strokeLinecap="round" d="M16 3v4M8 3v4M3 10h18" />
-    </svg>
-);
-
-/* Clock Icon */
-const ClockIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
-        <circle cx="12" cy="12" r="9" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
-    </svg>
-);
-
-/* Family Card */
-const FamilyCard = ({ type, title, subtitle, name, parentsTitle, parents, address, footer }) => {
+/* Groom / Bride card */
+const FamilyCard = ({ type, title, subtitle, name, parentsTitle, parents, address, footer, addressLabel }) => {
     const isGroom = type === "groom";
+    const Emblem = isGroom ? IconCrown : IconLotus;
 
     return (
-        <article className="relative h-full min-h-[560px] flex flex-col overflow-hidden rounded-2xl bg-white/95 backdrop-blur-sm border border-[#e9dfc5] shadow-[0_10px_35px_rgba(91,3,9,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(91,3,9,0.14)]">
-            <div className={`h-1.5 w-full ${isGroom ? "bg-[#5b0309]" : "bg-[#745b00]"}`} />
+        <OrnateFrame className="h-full" innerClassName="flex flex-col">
+            <div className="flex flex-1 flex-col items-center px-7 pb-6 pt-9 text-center sm:px-9">
+                <p className={`rounded-full px-6 py-1.5 text-base ${isGroom ? "bg-kumkum text-gold-light" : "bg-gold-deep text-ivory"}`}>{title}</p>
 
-            <div className="px-5 pt-6">
-                <div className={`rounded-xl py-3 px-4 text-center text-white font-devanagari font-semibold text-lg shadow-sm ${isGroom ? "bg-[#5b0309]" : "bg-[#745b00]"}`}>{title}</div>
-            </div>
+                <div className="mt-8">
+                    <EmblemNiche>
+                        <Emblem className="h-12 w-12" strokeWidth={1.3} />
+                    </EmblemNiche>
+                </div>
 
-            <div className="flex-1 flex flex-col items-center text-center px-6 pt-7 pb-5">
-                <div className="relative mb-5">
-                    <div className="w-[76px] h-[76px] rounded-2xl bg-[#fcf0c7] border border-[#ead9a7] flex items-center justify-center text-[#745b00] shadow-inner">
-                        {isGroom ? <MaleIcon /> : <FemaleIcon />}
+                <p className="mt-6 text-base text-gold-deep">{subtitle}</p>
+                <h3 className="mt-1 font-heading text-[1.9rem] leading-[1.5] text-kumkum md:text-[2.1rem]">{name}</h3>
+
+                <Divider className="my-4 w-full" />
+
+                <p className="text-base text-gold-deep">{parentsTitle}</p>
+                <p className="mt-2 whitespace-pre-line text-[1.08rem] leading-9 text-ink/85">{parents}</p>
+
+                <div className="mt-6 w-full flex-1" />
+
+                <div className="w-full rounded-2xl border border-gold/40 bg-parchment/50 px-4 py-4">
+                    <div className="flex items-center justify-center gap-2 text-gold-deep">
+                        <IconPin className="h-6 w-6" strokeWidth={1.4} />
+                        <span className="text-base">{addressLabel}</span>
                     </div>
-
-                    <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#5b0309] border-2 border-white flex items-center justify-center text-[#fcf0c7] text-xs">✦</span>
+                    <p className="mt-2 whitespace-pre-line text-[0.98rem] leading-8 text-ink/75">{address}</p>
                 </div>
 
-                <p className="font-devanagari text-sm text-[#987b38] font-medium mb-2">{subtitle}</p>
-
-                <h3 className="font-devanagari text-2xl md:text-[27px] font-bold text-[#5b0309] mb-5 leading-relaxed">{name}</h3>
-
-                <div className="flex items-center justify-center gap-3 w-full mb-5">
-                    <span className="h-px flex-1 bg-[#e9dcb9]" />
-                    <span className="text-[#b18a35] text-lg">✥</span>
-                    <span className="h-px flex-1 bg-[#e9dcb9]" />
-                </div>
-
-                <div className="w-full mb-6">
-                    <h4 className="font-devanagari text-sm font-bold text-[#745b00] mb-3">{parentsTitle}</h4>
-
-                    <p className="font-devanagari text-[15px] text-gray-700 leading-8 whitespace-pre-line">{parents}</p>
-                </div>
-
-                <div className="w-full mt-auto">
-                    <div className="bg-[#faf7ef] rounded-xl border border-[#eee4cf] px-4 py-4">
-                        <div className="flex justify-center items-center gap-2 text-[#745b00] mb-2">
-                            <LocationIcon />
-                            <span className="font-devanagari text-sm font-semibold">मूळ गाव / पत्ता</span>
-                        </div>
-
-                        <p className="font-devanagari text-sm text-gray-600 leading-7 whitespace-pre-line">{address}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="border-t border-[#eee4cf] bg-[#fcfaf5] py-4 px-4 text-center">
-                <p className="font-devanagari text-sm font-medium text-[#745b00] flex items-center justify-center gap-2">
-                    <span>✦</span> {footer} <span>✦</span>
+                <p className="mt-5 flex items-center justify-center gap-2 text-base text-gold-deep">
+                    <IconSparkle className="h-4 w-4" strokeWidth={1.6} />
+                    {footer}
+                    <IconSparkle className="h-4 w-4" strokeWidth={1.6} />
                 </p>
             </div>
-        </article>
+        </OrnateFrame>
     );
 };
 
-/* Wedding Card */
+/* The centre card: the two families become one */
 const WeddingCard = ({ t }) => (
-    <article className="relative h-full min-h-[560px] flex flex-col overflow-hidden rounded-2xl bg-[#5b0309] text-white border border-[#76252b] shadow-[0_12px_40px_rgba(91,3,9,0.22)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(91,3,9,0.3)]">
-        <div className="h-1.5 bg-[#c5a028]" />
-
-        <div className="absolute top-20 left-0 w-full flex justify-center opacity-[0.06] pointer-events-none">
-            <span className="text-[180px] leading-none">ॐ</span>
-        </div>
-
-        <div className="relative flex-1 flex flex-col items-center text-center px-6 pt-8 pb-6">
-            <div className="w-[76px] h-[76px] rounded-2xl bg-[#745b00] border border-[#b28e36] flex items-center justify-center text-[#fff3cf] shadow-lg mb-5">
-                <HeartIcon />
+    <OrnateFrame tone="dark" className="h-full" innerClassName="flex flex-col">
+        <div className="relative flex flex-1 flex-col items-center px-7 pb-8 pt-9 text-center sm:px-9">
+            <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 text-[11rem] leading-none text-gold-light/[0.07]">
+                ॐ
             </div>
 
-            <p className="font-devanagari text-sm text-[#f2d995] font-semibold mb-3">{t("wedding.mantra")}</p>
+            <Monogram tone="light" className="relative h-28 w-28" />
 
-            <h3 className="font-devanagari text-2xl md:text-[27px] font-bold leading-relaxed mb-5">{t("wedding.title")}</h3>
+            <p className="mt-5 text-lg text-gold-light">{t("wedding.mantra")}</p>
+            <h3 className="mt-2 font-heading text-[1.9rem] leading-[1.5] text-ivory md:text-[2.1rem]">{t("wedding.title")}</h3>
 
-            <div className="flex items-center gap-3 w-full mb-6">
-                <span className="h-px flex-1 bg-[#a66b6d]" />
-                <span className="text-[#e1bd64] text-xl">✥</span>
-                <span className="h-px flex-1 bg-[#a66b6d]" />
-            </div>
+            <Divider tone="light" className="my-4 w-full" />
 
-            <p className="font-devanagari text-sm text-[#f8e8c7] leading-8 mb-6">{t("sectionSubtitle")}</p>
+            <p className="text-[1.02rem] leading-8 text-ivory/85">{t("sectionSubtitle")}</p>
 
-            <div className="w-full bg-[#470207]/80 border border-[#8c494d] rounded-xl p-5 mb-5">
-                <p className="font-devanagari text-[#e6c775] text-sm font-semibold mb-4">{t("wedding.muhurtTitle")}</p>
+            <div className="mt-6 w-full rounded-2xl border border-gold-light/40 bg-oxblood/70 p-5">
+                <p className="text-base text-gold-light">{t("wedding.muhurtTitle")}</p>
 
-                <div className="flex items-center justify-center gap-3 mb-4 text-[#fff0d2]">
-                    <CalendarIcon />
-                    <p className="font-devanagari text-base font-semibold leading-relaxed">{t("wedding.date")}</p>
+                <div className="mt-4 flex items-center justify-center gap-3 text-ivory">
+                    <IconCalendar className="h-7 w-7 shrink-0 text-gold-light" />
+                    <p className="text-lg leading-8">{t("wedding.date")}</p>
                 </div>
 
-                <div className="w-3/4 mx-auto h-px bg-[#885053] mb-4" />
+                <div className="gilt-rule mx-auto my-3 w-3/4" />
 
-                <div className="flex items-center justify-center gap-3 text-[#e6c775]">
-                    <ClockIcon />
-                    <p className="font-devanagari text-xl font-bold">{t("wedding.time")}</p>
+                <div className="flex items-center justify-center gap-3 text-gold-light">
+                    <IconClock className="h-7 w-7 shrink-0" />
+                    <p className="font-heading text-2xl leading-9">{t("wedding.time")}</p>
                 </div>
             </div>
 
-            <div className="mt-auto w-full">
-                <p className="font-devanagari text-sm italic leading-8 text-[#f8e8c7]">"{t("wedding.quote")}"</p>
-            </div>
-        </div>
+            <p className="mt-6 flex-1 text-base italic leading-8 text-ivory/80">“{t("wedding.quote")}”</p>
 
-        <div className="bg-[#470207] border-t border-[#854044] py-4 text-center">
-            <p className="font-devanagari text-sm font-semibold text-[#e9cb83]">✦ शुभमंगल सावधान ✦</p>
+            <p className="mt-5 flex items-center justify-center gap-2 text-base text-gold-light">
+                <IconSparkle className="h-4 w-4" strokeWidth={1.6} />
+                शुभमंगल सावधान
+                <IconSparkle className="h-4 w-4" strokeWidth={1.6} />
+            </p>
         </div>
-    </article>
+    </OrnateFrame>
 );
 
-/* MAIN FAMILY SECTION */
 const FamilySection = () => {
     const { t } = useTranslation("family");
 
     return (
-        <section id="family-section" className="relative w-full pt-4 pb-12 md:pt-4 md:pb-20 bg-transparent overflow-hidden">
-            {/* SAME GOLDEN GLOWS AS MUHURT SECTION */}
-            <div className="absolute top-10 left-[-100px] w-72 h-72 bg-[#fcd358]/10 blur-[100px] rounded-full pointer-events-none" />
+        <section id="family-section" className="relative w-full overflow-hidden pb-16 pt-6 md:pb-24 md:pt-10">
+            <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-marigold/10 blur-[100px]" />
+            <div aria-hidden="true" className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-rose/10 blur-[100px]" />
+            <Lotus className="pointer-events-none absolute right-6 top-24 hidden h-20 w-20 animate-lotus-float lg:block" opacity={0.35} />
+            <Lotus className="pointer-events-none absolute bottom-28 left-6 hidden h-16 w-16 animate-lotus-float lg:block" opacity={0.3} />
 
-            <div className="absolute bottom-10 right-[-100px] w-72 h-72 bg-[#c5a028]/10 blur-[100px] rounded-full pointer-events-none" />
+            <div className="relative z-10 mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-10">
+                <SectionHeading icon={IconKalash} title={t("sectionTitle")} subtitle={t("sectionSubtitle")} className="mb-12 md:mb-16" />
 
-            {/* SAME FLOATING DECORATIONS AS MUHURT / VENUE */}
-            <div className="absolute top-1/4 right-10 text-[#c5a028]/30 text-4xl animate-[float_7s_ease-in-out_infinite] pointer-events-none">✥</div>
-
-            <div className="absolute bottom-1/4 left-10 text-[#d4af37]/30 text-2xl animate-[float_5s_ease-in-out_infinite] pointer-events-none">✦</div>
-
-            <div className="absolute top-1/2 left-1/4 text-[#D4AF37] text-xs animate-pulse opacity-40 pointer-events-none [animation-delay:500ms]">✦</div>
-
-            <div className="absolute bottom-1/3 right-1/4 text-[#C5A028] text-[10px] animate-pulse opacity-50 pointer-events-none [animation-delay:1000ms]">✧</div>
-
-            {/* MAIN CONTENT */}
-            <div className="w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-                {/* SECTION HEADER */}
-                <div className="text-center mb-10 md:mb-14">
-                    <div className="flex items-center justify-center gap-4 mb-5">
-                        <span className="w-14 h-px bg-[#c5a028]" />
-                        <span className="text-[#a27d27] text-xl">✥</span>
-                        <span className="w-14 h-px bg-[#c5a028]" />
-                    </div>
-
-                    <h2 className="font-devanagari text-[22px] sm:text-3xl md:text-4xl font-bold text-[#5b0309] mb-4 tracking-wide leading-snug">{t("sectionTitle")}</h2>
-
-                    <p className="font-devanagari text-sm md:text-base text-gray-700 max-w-2xl mx-auto leading-8">{t("sectionSubtitle")}</p>
-                </div>
-
-                {/* FAMILY CARDS GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 items-stretch">
+                <div className="grid grid-cols-1 items-stretch gap-7 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                     <FamilyCard
                         type="groom"
                         title={t("groomFamily.title")}
@@ -216,20 +125,26 @@ const FamilySection = () => {
                         parents={t("groomFamily.parents")}
                         address={t("groomFamily.address")}
                         footer={t("groomFamily.footer")}
+                        addressLabel={t("addressLabel", "मूळ गाव / पत्ता")}
                     />
 
-                    <WeddingCard t={t} />
+                    <div className="h-full">
+                        <WeddingCard t={t} />
+                    </div>
 
-                    <FamilyCard
-                        type="bride"
-                        title={t("brideFamily.title")}
-                        subtitle={t("brideFamily.subtitle")}
-                        name={t("brideFamily.name")}
-                        parentsTitle={t("brideFamily.parentsTitle")}
-                        parents={t("brideFamily.parents")}
-                        address={t("brideFamily.address")}
-                        footer={t("brideFamily.footer")}
-                    />
+                    <div className="h-full md:col-span-2 md:mx-auto md:w-1/2 md:min-w-[22rem] lg:col-span-1 lg:mx-0 lg:w-auto lg:min-w-0">
+                        <FamilyCard
+                            type="bride"
+                            title={t("brideFamily.title")}
+                            subtitle={t("brideFamily.subtitle")}
+                            name={t("brideFamily.name")}
+                            parentsTitle={t("brideFamily.parentsTitle")}
+                            parents={t("brideFamily.parents")}
+                            address={t("brideFamily.address")}
+                            footer={t("brideFamily.footer")}
+                            addressLabel={t("addressLabel", "मूळ गाव / पत्ता")}
+                        />
+                    </div>
                 </div>
             </div>
         </section>
