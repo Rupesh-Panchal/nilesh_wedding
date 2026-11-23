@@ -22,7 +22,7 @@ function App() {
             <BackgroundMusic />
 
             {/* Slow auto scroll (no UI) */}
-            <AutoScroll />
+            {/* <AutoScroll /> */}
 
             {/* Global Background Animation */}
             <BackgroundAnimation />

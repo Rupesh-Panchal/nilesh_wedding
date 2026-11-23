@@ -1,31 +1,31 @@
 {
-    "sectionTitle": "|| A Cordial Invitation ||",
-    "sectionSubtitle": "With love, respect, and heartfelt joy, we cordially invite you and your family to grace this auspicious occasion with your presence and blessings.",
+    "sectionTitle": "|| A Warm Invitation ||",
+    "sectionSubtitle": "With love, respect, and joy, we cordially invite you and your family to grace this auspicious occasion in our family and bless the bride and groom.",
     "groomFamily": {
-        "title": "Groom's Family",
-        "subtitle": "The Groom",
-        "name": "Chi. Nilesh",
+        "title": "Groom's Side",
+        "subtitle": "Introducing the Groom",
+        "name": "Ch. Nilesh",
         "parentsTitle": "Beloved Son of:",
-        "parents": "Shri. Vijay Mahadev Panchal\nand Sau. Jayashri Vijay Panchal",
-        "address": "Panchal Family, Bhayandar, Mumbai.\nWe warmly invite you and your family to join us in celebrating this joyous occasion.",
-        "footer": "With Respect and Gratitude"
+        "parents": "Mr. Vijay Mahadev Panchal\nMrs. Jayshree Vijay Panchal",
+        "address": "Panchal Family.\nAt/Post Masure (Dangmode), Taluka Malvan, District Sindhudurg.\nWe warmly request you and your family to be present at this joyous celebration and grace the occasion with your presence.",
+        "footer": "Blessings and Auspicious Wishes"
     },
     "wedding": {
-        "mantra": "|| With the Blessings of the Almighty ||",
-        "title": "Wedding Ceremony",
+        "mantra": "|| Salutations to Lord Ganesha ||",
+        "title": "Their Auspicious Wedding",
         "muhurtTitle": "Auspicious Wedding Muhurat",
         "date": "5 December 2026",
         "time": "12:17 PM",
-        "quote": "The union of two hearts brings together two families, creating a bond of love and togetherness for a lifetime."
+        "quote": "A sacred union of two souls, a beautiful moment that binds two families together in an everlasting bond of love and affection."
     },
     "brideFamily": {
-        "title": "Bride's Family",
-        "subtitle": "The Bride",
-        "name": "Chi. Sou. Ka. Jyotsna",
+        "title": "Bride's Side",
+        "subtitle": "Introducing the Bride",
+        "name": "Ch. Sau. Ka. Jyotsna",
         "parentsTitle": "Beloved Daughter of:",
-        "parents": "Shri. Chandrakant (Baba) Ganpat Mestry\nand Sau. Sulochana Chandrakant Mestry",
-        "address": "Panchal Family, Andheri, Mumbai.\nWe warmly welcome you and your family to share in this beautiful celebration.",
-        "footer": "With Warm Regards and Welcome"
+        "parents": "Mr. Chandrakant Vasant Panchal\nMrs. Sangita Chandrakant Panchal",
+        "address": "Panchal Family.\nNivachi Wadi, At/Post Savarde, Taluka Chiplun, District Ratnagiri.\nWe cordially request you and your family to grace this auspicious occasion and bless the bride and groom.",
+        "footer": "A Heartfelt Welcome and Reception"
     },
     "addressLabel": "Native Place / Address"
 }

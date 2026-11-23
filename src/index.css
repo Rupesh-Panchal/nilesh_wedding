@@ -1,11 +1,3 @@
-/* ==========================================================================
-   FONTS (self-hosted through @fontsource, so the invitation never depends on
-   an external font server and Marathi / Hindi glyphs always render properly)
-   - Rozha One ........ display face for names and titles (Latin + Devanagari)
-   - Tiro Devanagari .. calligraphic body face for Marathi / Hindi
-   - Cormorant ........ refined body face for English
-   - Great Vibes ...... script used only for the N & J monogram
-   ========================================================================== */
 @import "@fontsource/rozha-one/latin-400.css";
 @import "@fontsource/rozha-one/latin-ext-400.css";
 @import "@fontsource/rozha-one/devanagari-400.css";
