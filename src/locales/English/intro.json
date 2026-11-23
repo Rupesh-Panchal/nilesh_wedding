@@ -1,4 +1,12 @@
 {
     "enter": "ENTER",
-    "instruction": "Tap to enter the wedding invitation"
+    "instruction": "Tap to enter the wedding invitation",
+    "ganeshMantra": "॥ Shree Ganeshaya Namah ॥",
+    "devotionalImageAlt": "Shri Ram, Lakshman, Sita and Hanuman",
+    "invitationHeading": "A Loving Invitation to You",
+    "groomName": "Nilesh",
+    "brideName": "Jyotsna",
+    "weddingTitle": "Shubh Vivah Sohala",
+    "weddingDate": "Saturday, 5 December 2026",
+    "weddingTime": "12:17 PM"
 }
