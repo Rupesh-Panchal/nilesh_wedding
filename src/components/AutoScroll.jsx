@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 // Slow scroll speed in pixels per second. Lower = slower.
-const SPEED = 40;
+const SPEED = 25;
 
 // Pause after the intro has fully disappeared, before scrolling starts (ms)
 const START_DELAY = 800;
