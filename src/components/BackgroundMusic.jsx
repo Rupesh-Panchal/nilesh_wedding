@@ -97,10 +97,26 @@ const BackgroundMusic = () => {
 
     return (
         <>
+            {/* ── Disco equalizer / glow keyframes ── */}
+            <style>{`
+                @keyframes disco-spin {
+                    0%   { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                @keyframes disco-pulse {
+                    0%, 100% { opacity: 0.35; transform: scale(1); }
+                    50%      { opacity: 0.75; transform: scale(1.15); }
+                }
+                @keyframes disco-bar {
+                    0%, 100% { transform: scaleY(0.35); }
+                    50%      { transform: scaleY(1); }
+                }
+            `}</style>
+
             {/* LEFT: Language dropdown */}
             <div ref={langRef} className="fixed bottom-[calc(2.25rem+env(safe-area-inset-bottom))] left-5 z-[99999] md:bottom-[calc(1.25rem+env(safe-area-inset-bottom))]">
                 {isLangOpen && (
-                    <div className="absolute bottom-full left-0 mb-2 w-36 overflow-hidden rounded-2xl border border-gold/70 bg-ivory/95 py-1 shadow-gilt backdrop-blur-md">
+                    <div className="absolute bottom-full left-0 mb-2 w-40 overflow-hidden rounded-2xl border border-gold/70 bg-ivory/95 py-1 shadow-gilt backdrop-blur-md">
                         {languages.map((language) => {
                             const isActive = currentLanguage === language.code;
 
@@ -127,30 +143,91 @@ const BackgroundMusic = () => {
                     aria-haspopup="listbox"
                     aria-expanded={isLangOpen}
                     aria-label="Change language"
-                    className="flex h-12 items-center gap-2 rounded-full border border-gold/70 bg-ivory/95 px-4 text-base text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:bg-parchment active:scale-95"
+                    className="group relative flex h-12 items-center gap-2 overflow-hidden rounded-full border border-gold/70 bg-ivory/95 px-4 text-base text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-parchment hover:shadow-lg active:scale-95"
                 >
+                    {/* soft gold sheen */}
+                    <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-gold/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+
                     <span aria-hidden="true" className="font-heading text-lg leading-none text-gold-deep">
                         अ
                     </span>
 
-                    <span>{currentLangLabel}</span>
+                    <span className="tracking-wide">{currentLangLabel}</span>
 
-                    <IconChevron className={`h-4 w-4 transition-transform duration-200 ${isLangOpen ? "" : "rotate-180"}`} />
+                    <IconChevron className={`h-4 w-4 text-gold-deep transition-transform duration-300 ${isLangOpen ? "rotate-0" : "rotate-180"}`} />
                 </button>
             </div>
 
-            {/* RIGHT: Music button - hidden during intro */}
+            {/* RIGHT: Disco music button - hidden during intro */}
             {showMusicButton && (
                 <button
                     type="button"
                     onClick={toggleMusic}
                     aria-label={isPlaying ? "Pause music" : "Play music"}
                     title={isPlaying ? "Pause music" : "Play music"}
-                    className="fixed bottom-[calc(2.25rem+env(safe-area-inset-bottom))] right-5 z-[99999] flex h-14 w-14 items-center justify-center rounded-full border border-gold/70 bg-ivory/95 text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-parchment active:scale-95 md:bottom-[calc(1.25rem+env(safe-area-inset-bottom))]"
+                    className="group fixed bottom-[calc(2.25rem+env(safe-area-inset-bottom))] right-5 z-[99999] flex h-14 w-14 items-center justify-center rounded-full border border-gold/70 bg-ivory/95 text-kumkum shadow-gilt backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-parchment active:scale-95 md:bottom-[calc(1.25rem+env(safe-area-inset-bottom))]"
                 >
-                    {isPlaying ? <IconPause className="h-6 w-6" strokeWidth={1.8} /> : <IconMusic className="h-6 w-6" strokeWidth={1.6} />}
+                    {/* Rotating conic gradient halo (disco ring) */}
+                    <span
+                        aria-hidden="true"
+                        className={`pointer-events-none absolute -inset-[3px] rounded-full ${isPlaying ? "opacity-100" : "opacity-0"} transition-opacity duration-500`}
+                        style={{
+                            background: "conic-gradient(from 0deg, #d4af37, #ff6ec4, #7873f5, #4ADEDE, #d4af37)",
+                            filter: "blur(6px)",
+                            animation: isPlaying ? "disco-spin 4s linear infinite" : "none",
+                            WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+                            mask: "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+                        }}
+                    />
 
-                    {isPlaying && <span className="pointer-events-none absolute inset-0 rounded-full border border-gold animate-ping opacity-30" />}
+                    {/* Outer pulse ring when playing */}
+                    {isPlaying && (
+                        <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-full border border-gold" style={{ animation: "disco-pulse 1.8s ease-in-out infinite" }} />
+                    )}
+
+                    {/* Icon or equalizer */}
+                    {isPlaying ? (
+                        <span className="relative flex items-end justify-center gap-[3px]" aria-hidden="true">
+                            <span
+                                className="w-[3px] rounded-full bg-kumkum"
+                                style={{
+                                    height: "14px",
+                                    transformOrigin: "bottom",
+                                    animation: "disco-bar 0.9s ease-in-out infinite",
+                                    animationDelay: "0s",
+                                }}
+                            />
+                            <span
+                                className="w-[3px] rounded-full bg-kumkum"
+                                style={{
+                                    height: "18px",
+                                    transformOrigin: "bottom",
+                                    animation: "disco-bar 0.9s ease-in-out infinite",
+                                    animationDelay: "0.15s",
+                                }}
+                            />
+                            <span
+                                className="w-[3px] rounded-full bg-kumkum"
+                                style={{
+                                    height: "12px",
+                                    transformOrigin: "bottom",
+                                    animation: "disco-bar 0.9s ease-in-out infinite",
+                                    animationDelay: "0.3s",
+                                }}
+                            />
+                            <span
+                                className="w-[3px] rounded-full bg-kumkum"
+                                style={{
+                                    height: "16px",
+                                    transformOrigin: "bottom",
+                                    animation: "disco-bar 0.9s ease-in-out infinite",
+                                    animationDelay: "0.45s",
+                                }}
+                            />
+                        </span>
+                    ) : (
+                        <IconMusic className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.6} />
+                    )}
                 </button>
             )}
         </>
